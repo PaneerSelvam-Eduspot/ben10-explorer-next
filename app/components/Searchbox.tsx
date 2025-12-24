@@ -2,8 +2,6 @@
 import React, { useState } from 'react';
 import { useAliens } from '@/lib/Store';
 
-// ... existing code ...
-
 const SearchIcon = (props: React.SVGProps<SVGSVGElement>) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
@@ -32,10 +30,10 @@ export default function Searchbox() {
 
   return (
     <div className="flex flex-row justify-center gap-4" >
-      <div className='relative mt-4 md:w-100'>
+      <div className='relative md:w-100'>
       <input
         type="text"
-        className="block w-full rounded-xl border border-green-200 shadow-lg px-6 py-4 text-lg md:pl-6 focus:ring-green-500 focus:border-green-500 transition duration-150"
+        className="block w-full rounded-xl bg-black/50 border border-green-200/70 shadow-lg px-6 py-4 text-md text-white md:pl-6 focus:ring-green-500 focus:border-green-500 transition duration-150"
         placeholder="Search by name or species..."
         value={inputValue}
         onChange={(e) => setInputValue(e.currentTarget.value)}
@@ -47,7 +45,7 @@ export default function Searchbox() {
       />
       </div>
       <SearchIcon
-       className="border-2 mt-6 p-2 rounded-md bg-green-400 text-black cursor-pointer active:bg-green-700"
+       className="border-2 mt-2 p-2 rounded-md bg-[#00FF00]/70 text-black cursor-pointer active:bg-[#00FF00] transition active:scale-90 border-black/70"
        onClick={handleSearch}
        />
     </div>

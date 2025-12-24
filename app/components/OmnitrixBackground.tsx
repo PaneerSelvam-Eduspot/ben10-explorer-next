@@ -17,11 +17,12 @@ export default function OmnitrixBackground() {
       duration: 2 + Math.random() * 2,
       delay: Math.random() * 2,
     }));
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setDotProps(props);
   }, []);
 
   return (
-    <div className="fixed inset-0 bg-black w-full h-full overflow-hidden -z-10">
+    <div className="fixed inset-0  bg-black w-full h-full overflow-hidden -z-10">
       <svg
         className="absolute  inset-0 w-full h-full"
         viewBox="0 0 100 100"
@@ -77,6 +78,7 @@ export default function OmnitrixBackground() {
           />
         </g> 
 
+        
         {/* Top left circuit pattern */}
         <g>
          { /*<motion.circle
@@ -102,6 +104,8 @@ export default function OmnitrixBackground() {
             initial={{ pathLength: 0, opacity: 0 }}
             animate={{ pathLength: 1, opacity: 0.8 }}
             transition={{ duration: 1.5, delay: 0.3 }}
+            
+           
           />
           <motion.path
             d="M 20,18 L 30,18 L 35,23"
@@ -114,6 +118,8 @@ export default function OmnitrixBackground() {
             initial={{ pathLength: 0, opacity: 0 }}
             animate={{ pathLength: 1, opacity: 0.7 }}
             transition={{ duration: 1.5, delay: 0.5 }}
+            
+            
           />
           <motion.path
             d="M 28,18 L 28,12 L 32,8"
@@ -126,6 +132,8 @@ export default function OmnitrixBackground() {
             initial={{ pathLength: 0, opacity: 0 }}
             animate={{ pathLength: 1, opacity: 0.6 }}
             transition={{ duration: 1.5, delay: 0.7 }}
+            
+            
           />
         </g>
 
@@ -345,6 +353,7 @@ export default function OmnitrixBackground() {
           animate={{ pathLength: 1, opacity: 0.5 }}
           transition={{ duration: 1.5, delay: 1.2 }}
         />
+        
 
         {/* Energy nodes 
         {[

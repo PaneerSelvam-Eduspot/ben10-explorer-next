@@ -48,13 +48,15 @@ type AlienState = {
   search: string;
   selectedAlienName: string | null;
   series: string;
+  showFavorites: boolean;
 };
 
 type AlienAction =
   | { type: 'setSearch'; payload: string }
   | { type: 'selectAlien'; payload: string }
   | { type: 'navigateToList' }
-  | { type: 'setSeries'; payload: string };
+  | { type: 'setSeries'; payload: string }
+  | { type: 'setShowFavorites'; payload: boolean };
 
 function useAlienSource() {
   const { data: allAliens = [], isLoading, error } = useQuery<Alien[], Error>({
@@ -62,7 +64,7 @@ function useAlienSource() {
     queryFn: fetchAllSeriesData,
   });
 
-  const [{ search, selectedAlienName, series }, dispatch] = useReducer(
+  const [{ search, selectedAlienName, series, showFavorites }, dispatch] = useReducer(
     (state: AlienState, action: AlienAction): AlienState => {
       switch (action.type) {
         case 'setSearch':
@@ -73,6 +75,8 @@ function useAlienSource() {
           return { ...state, selectedAlienName: null };
         case 'setSeries':
           return { ...state, series: action.payload };
+        case 'setShowFavorites':
+          return { ...state, showFavorites: action.payload };
         default:
           return state;
       }
@@ -81,6 +85,7 @@ function useAlienSource() {
       search: '',
       selectedAlienName: null,
       series: '',
+      showFavorites: false,
     }
   );
 
@@ -90,6 +95,10 @@ function useAlienSource() {
 
   const setSeries = useCallback((series: string) => {
     dispatch({ type: 'setSeries', payload: series });
+  }, []);
+
+  const setShowFavorites = useCallback((show: boolean) => {
+    dispatch({ type: 'setShowFavorites', payload: show });
   }, []);
 
   const selectAlien = useCallback((name: string) => {
@@ -116,6 +125,8 @@ function useAlienSource() {
     setSearch,
     series,
     setSeries,
+    showFavorites,
+    setShowFavorites,
     isLoading,
     error,
     selectedAlienName,

@@ -1,38 +1,52 @@
 "use client";
 
+import {
+  faAtom,
+  faCompass,
+  faHouse,
+} from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { motion } from "framer-motion";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 const navItems = [
-  { name: "Home", href: "/" },
-  { name: "Explorer", href: "/explorer" },
-  { name: "Omnitrix Directory", href: "/omnitrix" },
+  { name: <><FontAwesomeIcon icon={faHouse} /> Home</>, href: "/" },
+  { name: <><FontAwesomeIcon icon={faCompass}  /> Explorer</>, href: "/explorer" },
+  { name: <><FontAwesomeIcon icon={faAtom}  /> Omnitrix Directory</>, href: "/omnitrix" },
 ];
-
 export default function Header() {
   const pathname = usePathname();
 
   return (
-    <header className="w-full bg-transparent relative z-50">
+    <header className="md:flex flex-row items-start justify-start " >
+      <div className="">
+        <motion.img 
+        src="/ben10-logo.png" 
+        alt="" 
+        className="md:w-24 h-24 object-contain"
+         />
+      </div>
       {/* Navigation Tabs */}
+      <div className="w-full max-w-4xl mx-auto bg-black/70 relative border-b-2 border-l-2 border-r-2 border-[#00FF00]/70 shadow-[0_4px_30px_rgba(0,255,0,0.3)] rounded-lg "> 
       <nav className="flex items-stretch">
         {navItems.map((item, index) => {
           const isActive = pathname === item.href;
           return (
             <Link
-              key={item.name}
+              key={item.href}
               href={item.href}
-              className={`group relative flex-1 px-6 py-4 font-bold text-center transition-all duration-300 ease-in-out border-b-4
+              className={`group relative flex-1 px-6 py-4 font-bold text-center transition-all duration-300 ease-in-out rounded-lg
                 ${
                   isActive
-                    ? "bg-green-700 text-white border-green-700 shadow-[0_0_20px_rgba(0,255,0,0.3)]"
-                    : "bg-transparent text-gray-300 border-gray-700 hover:bg-gray-700/70 hover:text-green-700 hover:border-green-500"
+                    ? "bg-[#00FF00]/50 text-white border-[#00FF00]/50 shadow-[0_0_20px_rgba(0,255,0,0.3)]"
+                    : "bg-transparent text-gray-300 border-[#00FF00]/70 hover:bg-gray-700/70 hover:text-[#00FF00] hover:border-[#00FF00]"
                 }
                 ${index === 0 ? "rounded-tl-lg" : ""}
                 ${index === navItems.length - 1 ? "rounded-tr-lg" : ""}
               `}
             >
-              <span className="relative z-10 transition-colors duration-300 ease-in-out">
+              <span className="relative z-10 transition-colors  duration-300 ease-in-out">
                 {item.name}
               </span>
               
@@ -52,9 +66,7 @@ export default function Header() {
           );
         })}
       </nav>
-
-      {/* Decorative Border Line */}
-      <div className="h-1 bg-gradient-to-r from-green-700 via-green-500 to-green-700 shadow-[0_0_10px_rgba(0,255,0,0.5)]" />
+    </div>
     </header>
   );
 }

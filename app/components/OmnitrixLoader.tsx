@@ -144,14 +144,14 @@ export default function OmnitrixLoader() {
         })}
       </div>
 
-      {/* Loading Text */}
+      {/* Loading Text 
       <motion.div
         className="mt-12 text-center"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.5 }}
-      >
-       {/* <motion.h2
+        transition={{ delay: 0.5 }} 
+      > 
+        <motion.h2 
           className="text-green-400 text-2xl font-bold tracking-wider"
           animate={{
             opacity: [1, 0.6, 1],
@@ -165,7 +165,7 @@ export default function OmnitrixLoader() {
           SYNCING OMNITRIX DATA
         </motion.h2> */}
         
-        {/* Loading Dots */}
+        {/* Loading Dots 
         <div className="flex justify-center gap-2 mt-4">
           {[0, 1, 2].map((i) => (
             <motion.div
@@ -184,9 +184,9 @@ export default function OmnitrixLoader() {
             />
           ))}
         </div>
-      </motion.div>
+      </motion.div> */}
 
-      {/* Progress Bar */}
+      {/* Progress Bar 
       <motion.div
         className="mt-8 w-64 h-1 bg-gray-800 rounded-full overflow-hidden"
         initial={{ opacity: 0, scale: 0.8 }}
@@ -207,7 +207,7 @@ export default function OmnitrixLoader() {
             ease: 'easeInOut',
           }}
         />
-      </motion.div>
+      </motion.div> */}
     </div>
   );
 }

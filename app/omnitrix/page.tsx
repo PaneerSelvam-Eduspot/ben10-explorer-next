@@ -1,36 +1,35 @@
 'use client';
-
-import { useEffect } from 'react';
-import { useLoading } from '../components/LoadingProvider';
-import OmnitrixDirectory from '../components/OmnitrixDirectory';
 import { useAliens } from '@/lib/Store';
+import OmnitrixDirectory from '@/app/components/OmnitrixDirectory';
+import OmnitrixLoader from '@/app/components/OmnitrixLoader';
+import { motion } from 'framer-motion';
+import OmnitrixBackground from '../components/OmnitrixBackground';
+import ExplorerBackground from '../components/ExplorerBackground';
 
 export default function OmnitrixPage() {
-  const { showLoader, hideLoader } = useLoading();
-  const { aliens, isLoading } = useAliens();
-
-  useEffect(() => {
-    
-
-    if (isLoading) {
-      showLoader();
-    } else {
-      hideLoader();
-    }
-  }, [isLoading, showLoader, hideLoader]);
+  const { allAliens, isLoading, error } = useAliens();
 
   if (isLoading) {
-    return null; // Loading is handled by the OmnitrixLoader
+    return (
+      <div>
+        <OmnitrixLoader />
+      </div>
+    );
+  }
+
+  if (error) {
+    return <div>Error loading aliens: {error.message}</div>;
   }
 
   return (
-   <div className="min-h-screen bg-gradient-to-br from-black via-gray-900 to-green-900/20 p-8">
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.5 }}
+    >
       
-        
-        <div className="omnitrix-card p-6">
-          <OmnitrixDirectory aliens={aliens} />
-        </div>
-      </div>
-   
+      <ExplorerBackground />
+      <OmnitrixDirectory aliens={allAliens} />
+    </motion.div>
   );
 }
