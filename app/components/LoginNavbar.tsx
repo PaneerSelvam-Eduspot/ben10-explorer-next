@@ -23,13 +23,14 @@ export default function LoginNavbar() {
   };
   
   return (
-    <div className="fixed left-0 top-1/4 z-50 flex flex-col">
+    <div className="fixed left-0 top-[28%] z-50 flex flex-col">
       {/* Login Button */}
       <motion.button
-        className="w-20 h-20 bg-[#00FF00]/70 hover:bg-[#00FF00]/90 flex flex-col items-center justify-center 
+        className="md:w-20 md:h-20 p-1 bg-[#00FF00]/70 hover:bg-[#00FF00]/90 flex flex-col items-center justify-center 
                    text-white font-bold shadow-lg transition-all duration-300 group relative
                    rounded-r-2xl"
-        whileHover={{ width: '100px', x: 5 }}
+        whileHover={{ width: '90px', x: 5 }}
+        initial={{ width: '55px' }}
         whileTap={{ scale: 0.95 }}
         style={{
           boxShadow: '4px 4px 12px rgba(0, 0, 0, 0.3), 0 0 20px rgba(0, 255, 0, 0.3)',
@@ -38,7 +39,7 @@ export default function LoginNavbar() {
       >
         {/* User Icon */}
         <div 
-        className="w-10 h-10 rounded-full bg-black flex items-center justify-center mb-1"
+        className="md:w-10 md:h-10 px-2 rounded-full bg-black flex items-center justify-center mb-1"
         >
          {!isLoggedIn ? <User className="w-6 h-6 text-green-600" />: session.user?.name?.charAt(0).toUpperCase()}
         </div>

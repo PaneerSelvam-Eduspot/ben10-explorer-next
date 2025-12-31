@@ -25,18 +25,31 @@ model Favorite {
   @@index([userId])
 }
 
+model ChatHistory {
+  id        String   @id @default(cuid())
+  userId    String   @unique
+  messages  String   // JSON string of messages array
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  @@index([userId])
+}
+
 model User {
-  id            String    @id
-  name          String
-  email         String
-  emailVerified Boolean   @default(false)
-  image         String?
+  id             String        @id
+  name           String
+  email          String
+  emailVerified  Boolean       @default(false)
+  image          String?
   githubUsername String?
-  createdAt     DateTime  @default(now())
-  updatedAt     DateTime  @updatedAt
-  sessions      Session[]
-  accounts      Account[]
-  favorites     Favorite[]
+  createdAt      DateTime      @default(now())
+  updatedAt      DateTime      @updatedAt
+  sessions       Session[]
+  accounts       Account[]
+  favorites      Favorite[]
+  chatHistory    ChatHistory?
 
   @@unique([email])
   @@map("user")

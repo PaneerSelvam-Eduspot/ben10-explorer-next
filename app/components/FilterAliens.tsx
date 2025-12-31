@@ -14,19 +14,40 @@ export default function FilterAliens() {
   ];
 
   return (
-    <div className="flex flex-row justify-between p-2 md:w-300 mx-auto">
-      <div className='flex justify-center items-center'>
-        <Button 
-          className={`px-6 py-4 border mt-4 transition-all duration-300 active:scale-95 relative overflow-hidden ${
+    <div className="flex flex-col-reverse gap-4 md:flex-row justify-between lg:px-1 px-4 md:w-185 lg:w-250 xl:w-300 mx-auto">  
+      <div className='flex justify-center items-center mt-4'>
+        <motion.button 
+          className={` px-6 py-2 rounded-md relative radial-bg hover:scale-101 active:scale-95 ${
             showFavorites 
-              ? 'bg-red-500/20 border-red-500 text-red-400 shadow-[0_0_20px_rgba(239,68,68,0.3)]' 
-              : 'bg-black/80 border-white text-gray-400 hover:border-green-500 hover:text-green-400'
+              ? 'bg-black/20 border-red-500/50 hover:border-red-600 border' 
+              : 'bg-black/80 text-gray-400 border-green-500/50 hover:border-green-600 border hover:text-green-400'
           }`}
+          initial={{ "--x": "100%", scale: 1 }}
+          animate={{ "--x": "-100%" }}
+          whileTap={{ scale: 0.97 }}
+          transition={{
+             repeat: Infinity,
+             repeatType: "loop",
+             repeatDelay: 0.5,
+             type: "spring",
+             stiffness: 20,
+             damping: 15,
+             mass: 2,
+             scale :{
+              type: "spring",
+              stiffness: 10,
+              damping: 5,
+              mass: 0.1
+             }
+          }}
           onClick={() => setShowFavorites(!showFavorites)}
         >
-         
-          Favorite Aliens
+         <span className='text-neutral-100 tracking-wide font-light h-full w-full block relative linear-mask'>
+             Favorite Aliens
+         </span>
           
+          <span  className='block absolute inset-0 rounded-md p-px linear-overlay'/>
+         
           {/* Glow effect when active */}
           {showFavorites && (
             <motion.div
@@ -36,26 +57,34 @@ export default function FilterAliens() {
               transition={{ duration: 2, repeat: Infinity }}
             />
           )}
-        </Button>
+        </motion.button>
       </div>
       
       <div className='mt-4 md:w-82 flex flex-row'>
         <label htmlFor="series-filter" className="text-md md:w-24 mt-2 mr-1 text-gray-300">
+          
           Filter By
         </label>
-        <select 
+        <motion.select
           id="series-filter" 
-          className="md:w-full rounded-md border-2 border-green-200 text-gray-400 bg-black shadow-sm focus:border-green-500 focus:ring-green-500 px-2 py-2 transition-all duration-300 hover:border-green-400" 
+          className="md:w-full rounded-md border-2 text-gray-100  relative radial-bg shadow-sm focus:border-green-500 focus:ring-green-500 px-2 py-2 transition-all duration-300 hover:border-green-400"
           value={series} 
           onChange={(e) => setSeries(e.target.value)}
         >
-          <option value="">All Series</option>
+          
+          <option value="">
+            All Series
+          </option>
+          
           {seriesOptions.map(({ value, label }) => (
             <option key={value} value={value}>
+          
               {label}
-            </option>
+              
+            </option>  
           ))}
-        </select>
+        </motion.select>
+        
       </div>
     </div>
   );

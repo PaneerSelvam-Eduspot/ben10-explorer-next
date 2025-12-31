@@ -1,3 +1,5 @@
+
+
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: [
@@ -6,9 +8,6 @@ module.exports = {
   ],
   theme: {
     extend: {
-      colors: {
-        omnitrixGreen: "#00ff66",
-      },
     },
   },
   plugins: [],

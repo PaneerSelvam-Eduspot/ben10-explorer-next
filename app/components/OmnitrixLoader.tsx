@@ -86,7 +86,7 @@ export default function OmnitrixLoader() {
   }}
 >
   <div className="relative w-8 h-8">
-    <img 
+    <motion.img 
       src="/ben10-omnitrix.png" 
       alt="Omnitrix Symbol" 
       className="w-full h-full object-cover blur-[1px]"

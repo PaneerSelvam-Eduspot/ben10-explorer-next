@@ -21,10 +21,10 @@ export default function OmnitrixBackground() {
     setDotProps(props);
   }, []);
 
-  return (
-    <div className="fixed inset-0  bg-black w-full h-full overflow-hidden -z-10">
+return (
+    <div className="fixed inset-0 bg-black w-full h-full overflow-hidden -z-10">
       <svg
-        className="absolute  inset-0 w-full h-full"
+        className="absolute inset-0 w-full h-full"
         viewBox="0 0 100 100"
         preserveAspectRatio="xMidYMid slice"
       >
@@ -39,7 +39,7 @@ export default function OmnitrixBackground() {
           </filter>
         </defs>
 
-        {/* Central Omnitrix symbol */}
+        {/* Central Omnitrix symbol 
         <g transform="translate(50, 50)">
           <motion.circle
             cx="0"
@@ -76,88 +76,57 @@ export default function OmnitrixBackground() {
               ease: "easeInOut"
             }}
           />
-        </g> 
+        </g> */}
 
-        
         {/* Top left circuit pattern */}
         <g>
-         { /*<motion.circle
-            cx="20"
-            cy="8"
-            r="2.5"
-            fill="none"
-            stroke="#00ff00"
-            strokeWidth="0.8"
-            filter="url(#glow)"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 0.8 }}
-            transition={{ duration: 1, delay: 0.2 }}
-          /> */}
           <motion.path
             d="M 20,10.5 L 10,20 L 23,33"
             fill="none"
             stroke="#00ff00"
             strokeWidth="0.8"
-            strokeLinecap="rectangle"
-            strokeLinejoin="rectangle"
+            strokeLinecap="round"
+            strokeLinejoin="round"
             filter="url(#glow)"
             initial={{ pathLength: 0, opacity: 0 }}
             animate={{ pathLength: 1, opacity: 0.8 }}
             transition={{ duration: 1.5, delay: 0.3 }}
-            
-           
           />
           <motion.path
             d="M 20,18 L 30,18 L 35,23"
             fill="none"
             stroke="#00ff00"
             strokeWidth="0.8"
-            strokeLinecap="rectangle"
-            strokeLinejoin="rectangle"
+            strokeLinecap="round"
+            strokeLinejoin="round"
             filter="url(#glow)"
             initial={{ pathLength: 0, opacity: 0 }}
             animate={{ pathLength: 1, opacity: 0.7 }}
             transition={{ duration: 1.5, delay: 0.5 }}
-            
-            
           />
           <motion.path
             d="M 28,18 L 28,12 L 32,8"
             fill="none"
             stroke="#00ff00"
             strokeWidth="0.6"
-            strokeLinecap="rectangle"
-            strokeLinejoin="rectangle"
+            strokeLinecap="round"
+            strokeLinejoin="round"
             filter="url(#glow)"
             initial={{ pathLength: 0, opacity: 0 }}
             animate={{ pathLength: 1, opacity: 0.6 }}
             transition={{ duration: 1.5, delay: 0.7 }}
-            
-            
           />
         </g>
 
         {/* Top right circuit pattern */}
         <g>
-          {/*<motion.circle
-            cx="80"
-            cy="8"
-            r="2.5"
-            fill="none"
-            stroke="#00ff00"
-            strokeWidth="0.8"
-            filter="url(#glow)"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 0.8 }}
-            transition={{ duration: 1, delay: 0.2 }}
-          />*/}
           <motion.path
             d="M 80,10.5 L 90,20 L 77,33"
             fill="none"
             stroke="#00ff00"
             strokeWidth="0.8"
-            strokeLinecap="rectangle"
-            strokeLinejoin="rectangle"
+            strokeLinecap="round"
+            strokeLinejoin="round"
             filter="url(#glow)"
             initial={{ pathLength: 0, opacity: 0 }}
             animate={{ pathLength: 1, opacity: 0.8 }}
@@ -168,8 +137,8 @@ export default function OmnitrixBackground() {
             fill="none"
             stroke="#00ff00"
             strokeWidth="0.8"
-            strokeLinecap="rectangle"
-            strokeLinejoin="rectangle"
+            strokeLinecap="round"
+            strokeLinejoin="round"
             filter="url(#glow)"
             initial={{ pathLength: 0, opacity: 0 }}
             animate={{ pathLength: 1, opacity: 0.7 }}
@@ -180,8 +149,8 @@ export default function OmnitrixBackground() {
             fill="none"
             stroke="#00ff00"
             strokeWidth="0.6"
-            strokeLinecap="rectangle"
-            strokeLinejoin="rectangle"
+            strokeLinecap="round"
+            strokeLinejoin="round"
             filter="url(#glow)"
             initial={{ pathLength: 0, opacity: 0 }}
             animate={{ pathLength: 1, opacity: 0.6 }}
@@ -196,8 +165,8 @@ export default function OmnitrixBackground() {
             fill="none"
             stroke="#00ff00"
             strokeWidth="0.8"
-            strokeLinecap="rectangle"
-            strokeLinejoin="rectangle"
+            strokeLinecap="round"
+            strokeLinejoin="round"
             filter="url(#glow)"
             initial={{ pathLength: 0, opacity: 0 }}
             animate={{ pathLength: 1, opacity: 0.8 }}
@@ -208,37 +177,36 @@ export default function OmnitrixBackground() {
             fill="none"
             stroke="#00ff00"
             strokeWidth="0.8"
-            strokeLinecap="rectangle"
-            strokeLinejoin="rectangle"
+            strokeLinecap="round"
+            strokeLinejoin="round"
             filter="url(#glow)"
             initial={{ pathLength: 0, opacity: 0 }}
             animate={{ pathLength: 1, opacity: 0.7 }}
             transition={{ duration: 1.5, delay: 0.6 }}
           />
         </g>
-  {/* Right side circuit */}
+
+        {/* Right side circuit */}
         <g>
           <motion.path
             d="M 100,35 L 78,35 L 55,48"
             fill="none"
             stroke="#00ff00"
             strokeWidth="0.8"
-            strokeLinecap="rectangle"
-            strokeLinejoin="rectangle"
+            strokeLinecap="round"
+            strokeLinejoin="round"
             filter="url(#glow)"
             initial={{ pathLength: 0, opacity: 0 }}
             animate={{ pathLength: 1, opacity: 0.8 }}
             transition={{ duration: 1.5, delay: 0.4 }}
           />
-
-          {/* right-side path 2 */}
           <motion.path
             d="M 90,35 L 90,45 L 75,52"
             fill="none"
             stroke="#00ff00"
             strokeWidth="0.8"
-            strokeLinecap="rectangle"
-            strokeLinejoin="rectangle"
+            strokeLinecap="round"
+            strokeLinejoin="round"
             filter="url(#glow)"
             initial={{ pathLength: 0, opacity: 0 }}
             animate={{ pathLength: 1, opacity: 0.7 }}
@@ -253,8 +221,8 @@ export default function OmnitrixBackground() {
             fill="none"
             stroke="#00ff00"
             strokeWidth="0.8"
-            strokeLinecap="rectangle"
-            strokeLinejoin="rectangle"
+            strokeLinecap="round"
+            strokeLinejoin="round"
             filter="url(#glow)"
             initial={{ pathLength: 0, opacity: 0 }}
             animate={{ pathLength: 1, opacity: 0.8 }}
@@ -265,8 +233,8 @@ export default function OmnitrixBackground() {
             fill="none"
             stroke="#00ff00"
             strokeWidth="0.8"
-            strokeLinecap="rectangle"
-            strokeLinejoin="rectangle"
+            strokeLinecap="round"
+            strokeLinejoin="round"
             filter="url(#glow)"
             initial={{ pathLength: 0, opacity: 0 }}
             animate={{ pathLength: 1, opacity: 0.8 }}
@@ -277,8 +245,8 @@ export default function OmnitrixBackground() {
             fill="none"
             stroke="#00ff00"
             strokeWidth="0.6"
-            strokeLinecap="rectangle"
-            strokeLinejoin="rectangle"
+            strokeLinecap="round"
+            strokeLinejoin="round"
             filter="url(#glow)"
             initial={{ pathLength: 0, opacity: 0 }}
             animate={{ pathLength: 1, opacity: 0.6 }}
@@ -288,46 +256,42 @@ export default function OmnitrixBackground() {
 
         {/* Bottom right circuit */}
         <g>
-         <motion.path
-          d="M 100,59 L 85,63 L 75,58"
-          fill="none"
-          stroke="#00ff00"
-          strokeWidth="0.8"
-          strokeLinecap="rectangle"
-          strokeLinejoin="rectangle"
-          filter="url(#glow)"
-          initial={{ pathLength: 0, opacity: 0 }}
-          animate={{ pathLength: 1, opacity: 0.8 }}
-          transition={{ duration: 1.5, delay: 0.8 }}
-        />
-
-       
-       <motion.path
-        d="M 92,75 L 92,75 L 70,70 L 53,55"
-        fill="none"
-        stroke="#00ff00"
-        strokeWidth="0.8"
-        strokeLinecap="rectangle"
-        strokeLinejoin="rectangle"
-        filter="url(#glow)"
-        initial={{ pathLength: 0, opacity: 0 }}
-        animate={{ pathLength: 1, opacity: 0.8 }}
-        transition={{ duration: 1.5, delay: 0.9 }}
-      />
-
-
-        <motion.path
-          d="M 88,70 L 82,70 L 82,65"
-          fill="none"
-          stroke="#00ff00"
-          strokeWidth="0.6"
-          strokeLinecap="rectangle"
-          strokeLinejoin="rectangle"
-          filter="url(#glow)"
-          initial={{ pathLength: 0, opacity: 0 }}
-          animate={{ pathLength: 1, opacity: 0.6 }}
-          transition={{ duration: 1.5, delay: 1.1 }}
-        />
+          <motion.path
+            d="M 100,59 L 85,63 L 75,58"
+            fill="none"
+            stroke="#00ff00"
+            strokeWidth="0.8"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            filter="url(#glow)"
+            initial={{ pathLength: 0, opacity: 0 }}
+            animate={{ pathLength: 1, opacity: 0.8 }}
+            transition={{ duration: 1.5, delay: 0.8 }}
+          />
+          <motion.path
+            d="M 92,75 L 92,75 L 70,70 L 53,55"
+            fill="none"
+            stroke="#00ff00"
+            strokeWidth="0.8"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            filter="url(#glow)"
+            initial={{ pathLength: 0, opacity: 0 }}
+            animate={{ pathLength: 1, opacity: 0.8 }}
+            transition={{ duration: 1.5, delay: 0.9 }}
+          />
+          <motion.path
+            d="M 88,70 L 82,70 L 82,65"
+            fill="none"
+            stroke="#00ff00"
+            strokeWidth="0.6"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            filter="url(#glow)"
+            initial={{ pathLength: 0, opacity: 0 }}
+            animate={{ pathLength: 1, opacity: 0.6 }}
+            transition={{ duration: 1.5, delay: 1.1 }}
+          />
         </g>
 
         {/* Central connecting lines */}
@@ -336,7 +300,7 @@ export default function OmnitrixBackground() {
           fill="none"
           stroke="#00ff00"
           strokeWidth="0.5"
-          strokeLinecap="rectangle"
+          strokeLinecap="round"
           filter="url(#glow)"
           initial={{ pathLength: 0, opacity: 0 }}
           animate={{ pathLength: 1, opacity: 0.5 }}
@@ -347,69 +311,38 @@ export default function OmnitrixBackground() {
           fill="none"
           stroke="#00ff00"
           strokeWidth="0.5"
-          strokeLinecap="rectangle"
+          strokeLinecap="round"
           filter="url(#glow)"
           initial={{ pathLength: 0, opacity: 0 }}
           animate={{ pathLength: 1, opacity: 0.5 }}
           transition={{ duration: 1.5, delay: 1.2 }}
         />
-        
-
-        {/* Energy nodes 
-        {[
-          { x: 28, y: 33, delay: 0.8 },
-          { x: 72, y: 33, delay: 0.8 },
-          { x: 32, y: 42, delay: 1 },
-          { x: 68, y: 42, delay: 1 },
-          { x: 38, y: 62, delay: 1.3 },
-          { x: 62, y: 62, delay: 1.3 },
-        ].map((node, i) => (
-          <motion.circle
-            key={i}
-            cx={node.x}
-            cy={node.y}
-            r="1"
-            fill="#00ff00"
-            filter="url(#glow)"
-            initial={{ opacity: 0, scale: 0 }}
-            animate={{ 
-              opacity: [0, 1, 0],
-              scale: [0, 1.5, 0]
-            }}
-            transition={{
-              duration: 2,
-              repeat: Infinity,
-              delay: node.delay,
-              ease: "easeInOut"
-            }}
-          />
-        ))} */}
       </svg>
 
       {/* Animated energy particles */}
-       <div className="absolute inset-0">
-      {dotProps.map((props, i) => (
-        <motion.div
-          key={i}
-          className="absolute w-1 h-1 bg-green-400 rounded-full"
-          style={{
-            left: `${props.left}%`,
-            top: `${props.top}%`,
-            filter: 'blur(1px)',
-          }}
-          animate={{
-            opacity: [0, 2, 0],
-            scale: [0, 1.6, 0],
-          }}
-          transition={{
-            duration: props.duration,
-            repeat: Infinity,
-            delay: props.delay,
-            ease: "easeInOut",
-          }}
-        />
-      ))}
-    </div>
+      <div className="absolute inset-0 pointer-events-none">
+        {dotProps.map((props, i) => (
+          <motion.div
+            key={i}
+            className="absolute w-1 h-1 sm:w-1.5 sm:h-1.5 md:w-2 md:h-2 bg-[#00FF00] rounded-full"
+            style={{
+              left: `${props.left}%`,
+              top: `${props.top}%`,
+              filter: 'blur(1px)',
+            }}
+            animate={{
+              opacity: [0, 2, 0],
+              scale: [0, 1.6, 0],
+            }}
+            transition={{
+              duration: props.duration,
+              repeat: Infinity,
+              delay: props.delay,
+              ease: "easeInOut",
+            }}
+          />
+        ))}
+      </div>
     </div>
   );
 }

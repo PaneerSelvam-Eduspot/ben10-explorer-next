@@ -70,11 +70,11 @@ export default function Home() {
       {!isLoaded && <div className="min-h-screen"></div>}
 
       {isLoaded && (
-        <div className="min-h-screen flex flex-col justify-center relative overflow-auto">
+        <div className="sm:min-w-[200px] md:min-h-screen mt-[-65px] md:mt-[-26px] flex flex-col justify-center relative overflow-y-auto overflow-x-hidden">
           {/* Alien Slider Section */}
-          <div className="w-full max-w-10xl mx-auto flex md:flex-row items-center justify-center gap-8 md:gap-16">
+          <div className="w-full max-w-10xl mx-auto flex md:flex-row items-center justify-center gap-6 md:gap-10">
             {/* Alien Display Area */}
-            <div className="flex-1 flex flex-col md:flex-row items-center justify-between max-w-7xl gap-8 md:gap-72">
+            <div className="flex-1 flex flex-col md:flex-row items-center justify-between max-w-7xl p-5 gap-8 md:gap-10 lg:gap-40">
 
               
               {/* Alien Image with Smooth 3-Image Carousel */}
@@ -165,21 +165,22 @@ export default function Home() {
 
               {/* Description */}
               <AnimatePresence mode="wait">
-                <div className='flex-1 min-w-full md:min-w-[220px] relative'>
+                <div className='flex-1 relative rounded-2xl'>
                   {/* Outer border container with corner accents */}
-                  <div className="relative bg-gradient-to-br from-[#00FF00] to-[#00DD00] p-[3px] rounded-lg shadow-[0_0_30px_rgba(0,255,0,0.5)]">
+                  <div className="relative card-wrapper p-[3px] rounded-lg ">
+                    <div className='...'></div>
                     {/* Inner content box */}
-                    <div className="bg-[#1f1f1f] backdrop-blur-sm p-6 md:p-10 rounded-lg relative overflow-hidden">
-                      {/* Corner decorations */}
+                    <div className="card-content radial-bg-dark p-6 md:p-10 rounded-lg relative overflow-hidden">
+                      {/* Corner decorations 
                       <div className="absolute top-0 left-0 w-8 h-8 border-t-4 border-l-4 border-[#00FF00] rounded-tl-lg"></div>
                       <div className="absolute top-0 right-0 w-8 h-8 border-t-4 border-r-4 border-[#00FF00] rounded-tr-lg"></div>
                       <div className="absolute bottom-0 left-0 w-8 h-8 border-b-4 border-l-4 border-[#00FF00] rounded-bl-lg"></div>
                       <div className="absolute bottom-0 right-0 w-8 h-8 border-b-4 border-r-4 border-[#00FF00] rounded-br-lg"></div>
-
+                       */}
                       
                       <motion.div
                         key={`desc-${currentIndex}`}
-                        className="relative z-10"
+                        className="relative z-10 "
                         initial={{
                           opacity: 0,
                           y: direction === 'next' ? -70 : 70,
@@ -195,10 +196,10 @@ export default function Home() {
                         transition={{ duration: 0.5, ease: [0.45, 0, 0.55, 1], delay: 0.1 }}
                       >
                         {/* Title with tech styling */}
-                        <div className="mb-6 relative">
+                        <div className="mb-6 relative ">
                          
                           <motion.h2
-                            className="text-3xl font-black text-[#00FF00] text-center tracking-wider uppercase"
+                            className="text-3xl font-black text-[#00FF00]/90 text-center tracking-wider uppercase"
                             style={{
                               textShadow: '0 0 20px rgba(0, 255, 0, 0.6), 0 2px 4px rgba(0, 0, 0, 0.8)',
                             }}
@@ -224,7 +225,7 @@ export default function Home() {
           </div>
 
           {/* Navigation Buttons */}
-          <div className="mt-8 md:mt-12 flex gap-5 justify-center">
+          <div className="mt-1 md:mt-12 mb-4 flex gap-5 justify-center">
             <motion.button
               onClick={handlePrev}
               className="w-12 h-12 md:w-16 md:h-16 rounded-full bg-gradient-to-br from-gray-800 to-gray-900 border-2 border-green-500/50 flex items-center justify-center text-green-400 shadow-lg z-10 group"

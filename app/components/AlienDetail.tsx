@@ -6,6 +6,8 @@ import OmnitrixBackground from './OmnitrixBackground';
 import OmnitrixLoader from './OmnitrixLoader';
 import { useLoading } from './LoadingProvider';
 import { motion } from 'framer-motion';
+import ExplorerBackground from './ExplorerBackground';
+import Background from './empty';
 
 const PLACEHOLDER_URL_LARGE = 'https://placehold.co/320x320/059669/FFFFFF?text=OMNITRIX';
 
@@ -87,20 +89,23 @@ export default function AlienDetail({ name }) {
         animate={{ opacity: loading ? 0 : 1 }}
         transition={{ duration: 0.8 }}
       />
-        <OmnitrixBackground />
+        {/*<Background />*/}
+        {/*<OmnitrixBackground />
+        <ExplorerBackground />*/}
         <div className="p-6 min-h-screen relative z-10">
           <button
             onClick={() =>  router.back()}
             className="inline-block bg-transparent border-none p-0 cursor-pointer focus:outline-none"
           >
         <h1 
-        className="text-2xl font-bold mb-6 text-white hover:text-[#00FF00] transition border-b border-transparent hover:border-[#00FF00]/60 w-max"
+        className="text-2xl font-bold mb-6 text-white md:mt-5 xl:mt-0 hover:text-[#00FF00] transition border-b border-transparent hover:border-[#00FF00]/60 w-max"
         >
           &lt; Back
         </h1>
       </button>
 
-      <div className="bg-black border border-[#00FF00] rounded-2xl shadow-[#00FF00]/80 shadow-lg p-8 relative md:w-280 mx-auto">
+      <div className="radial-bg-dark card-wrapper md:mt-40 xl:mt-0 rounded-2xl p-1 relative xl:w-280 mx-auto">
+       <div className='card-content radial-bg-dark p-7 shadow-sm shadow-[#00FF00]'>
         <div className="flex justify-between items-center mb-6">
           <button 
           onClick={handlePrevious} 
@@ -123,13 +128,14 @@ export default function AlienDetail({ name }) {
           </button>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          <div className="flex justify-center bg-black/70">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8" >
+          <div className="flex justify-center">
+            <div className='card-wrapper h-70 w-68 p-1'>
             <motion.img 
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.5 }}
-            className="w-64 h-64 md:w-80 md:h-80  rounded-3xl object-contain border-3 border-[#00FF00] shadow-lg shadow-[#00FF00]/80 p-4 aspect-square" 
+            className="w-68 h-68 rounded-3xl object-contain radial-bg-dark card-content shadow-lg shadow-[#00FF00]  p-4 aspect-square" 
             src={alienData.image || PLACEHOLDER_URL_LARGE} 
             alt={alienData.name} 
             onError={(e) => {
@@ -137,9 +143,10 @@ export default function AlienDetail({ name }) {
                (e.currentTarget as HTMLImageElement).src = PLACEHOLDER_URL_LARGE; 
                }} 
             />
+            </div>
           </div>
 
-          <div className="flex flex-col">
+          <div className="flex flex-col ">
             <div className="md:text-sm font-light mb-4 ">
               <button className="bg-[#00FF00]/10 px-2 py-1 text-gray-300 text-sm border-2 border-[#00FF00]/50 rounded-md hover:bg-[#00FF00]/20 transition mb-1">
                 <span className="font-bold text-[#00FF00]/70">Species:</span> {alienData.species}
@@ -171,6 +178,7 @@ export default function AlienDetail({ name }) {
             </ul>
           </div>
         </div>
+      </div>
       </div>
     </div>
   </div>

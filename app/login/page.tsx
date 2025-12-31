@@ -33,7 +33,7 @@ export default function LoginPage() {
 }, [session?.user]);
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center bg-zinc-300 relative overflow-hidden">
+    <div className="min-h-screen flex flex-col items-center justify-center bg-zinc-400 relative overflow-hidden">
       {/* Animated Alien Pattern Background */}
       <div className="absolute inset-0 z-0">
         {/* Subtle gray pattern background */}
@@ -42,10 +42,10 @@ export default function LoginPage() {
         {/* Alien icons pattern */}
         <div className="absolute inset-0 opacity-40">
           {[...Array(20)].map((_, i) => {
-            const aliens = [
+            const omnitrix = [
               '/ben10-omnitrix.png',
             ];
-            const randomAlien = aliens[i % aliens.length];
+            const randomOmnitrix = omnitrix[i % omnitrix.length];       
             
             return (
               <motion.div
@@ -70,8 +70,8 @@ export default function LoginPage() {
                 }}
               >
                 <motion.img
-                  src={randomAlien}
-                  alt="alien"
+                  src={randomOmnitrix}
+                  alt="omnitrix"
                   className="w-full h-full object-contain grayscale"
                 />
               </motion.div>
@@ -81,7 +81,7 @@ export default function LoginPage() {
       </div>
 
       <div className="flex flex-row relative z-10">
-        <Card className="w-96 max-w-md border border-green-200 shadow-md shadow-gray-500">
+        <Card className="w-96 max-w-md border border-green-200 bg-zinc-300 shadow-md shadow-gray-500">
           <motion.img
             src="/ben10-signup.png"
             className="w-40 h-40 mx-auto"
@@ -97,7 +97,7 @@ export default function LoginPage() {
             <Button
               onClick={handleLoginWithGoogle}
               variant="outline"
-              className="w-full h-12"
+              className="w-full h-12 hover:border-green-600 active:scale-98"
               type="button"
             >
               <svg className="w-5 h-5 mr-3" viewBox="0 0 24 24">
@@ -125,7 +125,7 @@ export default function LoginPage() {
             <Button
               onClick={handleLoginWithGithub}
               variant="outline"
-              className="w-full h-12"
+              className="w-full h-12 hover:border-green-600 active:scale-98"
               type="button"
             >
               <svg className="w-5 h-5 mr-3" fill="currentColor" viewBox="0 0 24 24">

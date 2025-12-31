@@ -28,7 +28,7 @@ export default function OmnitrixPage() {
       transition={{ duration: 0.5 }}
     >
       
-      <ExplorerBackground />
+      
       <OmnitrixDirectory aliens={allAliens} />
     </motion.div>
   );

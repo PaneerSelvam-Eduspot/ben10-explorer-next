@@ -10,6 +10,7 @@ import { LoadingProvider } from './components/LoadingProvider';
 import Footer from './components/Footer';
 import LoginNavbar from './components/LoginNavbar';
 import { usePathname } from 'next/navigation';
+import RagIcon from './components/RagIcon';
 
 
 
@@ -25,7 +26,8 @@ export default function RootLayout({ children }: { children: ReactNode }) {
           <main>
           <AlienProvider>{children}</AlienProvider>
           </main>
-           {pathname !== '/login' && pathname !== '/dashboard'&& <Footer />}
+          {pathname !== '/login' && pathname !== '/dashboard' && <RagIcon />}
+           {pathname !== '/login' && pathname !== '/dashboard'&& pathname !== '/omnitrix' && <Footer />}
           </LoadingProvider>
         </QueryClientProvider>
       </body>

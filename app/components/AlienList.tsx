@@ -143,14 +143,14 @@ export default function AlienList() {
 
   if (filteredAliens.length === 0)
     return (
-      <div className="text-center mt-10 md:text-lg md:w-2xl mx-auto bg-black border text-white/70 border-[#00FF00] p-6 rounded-md">
+      <div className="text-center mt-10 md:text-lg md:w-2xl mx-auto radial-bg-dark border text-white/70 border-[#00FF00] p-6 rounded-md">
         {showFavorites ? (
           isLoggedIn ? (
             // User is logged in but has no favorites
             <div className="space-y-4">
               <p className="text-xl text-green-400">No favorites found</p>
               <p className="text-sm text-gray-400">
-                Click the ❤️ icon on any alien card to add them to your favorites!
+                Add your favorites to see them here!
               </p>
             </div>
           ) : (
@@ -181,7 +181,7 @@ export default function AlienList() {
       <AnimatePresence>
         <motion.ul
           key={filteredAliens.length}
-          className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 mt-6 md:w-300 mx-auto"
+          className="grid grid-cols-1 sm:gap-4 md:gap-6 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 mt-6 md:w-185 lg:w-250 xl:w-300 mx-auto overflow-y-auto overflow-x-hidden"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
@@ -190,11 +190,12 @@ export default function AlienList() {
           {visibleAliens.map((alien: Alien) => (
             <li
               key={alien.name}
-              className="flex flex-col text-center rounded-xl text-[#00FF00]/70 bg-black/90 border border-[#00FF00]/70 transition duration-300 transform hover:-translate-y-1 cursor-pointer overflow-hidden"
-              style={{
+              className="flex flex-col text-center card-wrapper p-1 rounded-xl text-[#00FF00]/70 transition duration-300 transform hover:-translate-y-1 cursor-pointer overflow-hidden"
+              /*style={{
                 boxShadow: '0 5px 10px #00FF00',
-              }}
+              }}*/
             >
+              <div className='relative card-content radial-bg-dark '>
               <div className='flex justify-end mr-4'> 
                 <FontAwesomeIcon
                   icon={faHeart}
@@ -213,7 +214,7 @@ export default function AlienList() {
                 onClick={() => router.push(`/alien/${encodeURIComponent(alien.name)}`)}
               >
                 <motion.img
-                  className="w-32 h-32 flex-shrink-0 mx-auto bg-gray-950 rounded-full object-contain text-[#00FF00]/80 border-3 border-[#00FF00]/70 p-2 aspect-square"
+                  className="w-32 h-32 flex-shrink-0 mx-auto radial-bg-dark rounded-full object-contain text-[#00FF00]/80 border-3 border-[#00FF00]/70 p-2 aspect-square"
                   src={alien.image || PLACEHOLDER_URL}
                   alt={alien.name}
                   onError={(e) => {
@@ -225,6 +226,7 @@ export default function AlienList() {
                   {alien.species}
                 </div>
                 <h3 className="text-xl font-bold text-white mt-1">{alien.name}</h3>
+              </div>
               </div>
             </li>
           ))}
@@ -238,21 +240,33 @@ export default function AlienList() {
                className="animate-spin rotate-180 text-2xl text-white/70 mt-5 duration-200"
               
           />
-          ) : (<button
-            className="bg-black/70 text-white/80 border border-white font-bold py-2 px-4 rounded-md mt-4 hover:bg-[#00FF00]/90 hover:text-black hover:border-black transition-all duration-300"
-            onClick={loadMore}
-          >
-            <motion.div
-              className="flex items-center gap-2"
-              whileHover={{ scale: 1.05 }}
-            >
-              <FontAwesomeIcon 
-               icon={faCircleDot}
-               className="animate-spin rotate-90"
-               />
-              Load More
-            </motion.div>
-          </button>
+          ) : (    <motion.button 
+                    className={` px-6 py-2 mt-4 rounded-md relative radial-bg hover:scale-101 active:scale-95`}
+                    initial={{ "--x": "100%", scale: 1 }}
+                    animate={{ "--x": "-100%" }}
+                    whileTap={{ scale: 0.97 }}
+                    transition={{
+                       repeat: Infinity,
+                       repeatType: "loop",
+                       repeatDelay: 0.5,
+                       type: "spring",
+                       stiffness: 20,
+                       damping: 15,
+                       mass: 2,
+                       scale :{
+                        type: "spring",
+                        stiffness: 10,
+                        damping: 5,
+                        mass: 0.1
+                       }
+                    }}
+                    onClick={loadMore}
+                  >
+                   <span className='text-neutral-100 tracking-wide font-light h-full w-full block relative linear-mask'>
+                       Load More
+                   </span>
+                    <span  className='block absolute inset-0 rounded-md p-px linear-overlay'/>
+                  </motion.button>
         )}
         </div>
       )}
