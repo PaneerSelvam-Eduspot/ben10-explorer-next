@@ -27,7 +27,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
           <AlienProvider>{children}</AlienProvider>
           </main>
           {pathname !== '/login' && pathname !== '/dashboard' && <RagIcon />}
-           {pathname !== '/login' && pathname !== '/dashboard'&& pathname !== '/omnitrix' && <Footer />}
+          {pathname === '/' && <Footer />}
           </LoadingProvider>
         </QueryClientProvider>
       </body>

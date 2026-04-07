@@ -8,7 +8,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleDot } from '@fortawesome/free-solid-svg-icons/faCircleDot';
 import { faHeart } from '@fortawesome/free-solid-svg-icons';
-import { useSession } from '@/lib/auth-client'; // Import your auth hook
+import { useSession } from '@/lib/auth-client'; 
 import { toast } from 'sonner';
 
 const PLACEHOLDER_URL = 'https://placehold.co/128x128/059669/FFFFFF?text=OMNITRIX';
@@ -263,7 +263,7 @@ export default function AlienList() {
                     onClick={loadMore}
                   >
                    <span className='text-neutral-100 tracking-wide font-light h-full w-full block relative linear-mask'>
-                       Load More
+                    Load More
                    </span>
                     <span  className='block absolute inset-0 rounded-md p-px linear-overlay'/>
                   </motion.button>

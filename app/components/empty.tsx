@@ -3,346 +3,152 @@
 import { motion } from 'framer-motion';
 import { useEffect, useState } from 'react';
 
-const NUM_DOTS = 15;
 export default function Background() {
-
-    const [dotProps, setDotProps] = useState<
-    { left: number; top: number; duration: number; delay: number }[]
-  >([]);
+  const [stars, setStars] = useState<{
+    size: number;
+    x: number;
+    y: number;
+    delay: number;
+    duration: number;
+    opacity: number;
+    twinkleSpeed: number;
+  }[]>([]);
+  const [ready, setReady] = useState(false);
 
   useEffect(() => {
-    const props = Array.from({ length: NUM_DOTS }, () => ({
-      left: Math.random() * 100,
-      top: Math.random() * 100,
-      duration: 2 + Math.random() * 2,
-      delay: Math.random() * 2,
-    }));
-    // eslint-disable-next-line react-hooks/set-state-in-effect
-    setDotProps(props);
+    // Generate random stars
+    setStars(
+      Array.from({ length: 100 }).map(() => ({
+        size: Math.random() * 3 + 1, // Stars between 1-4px
+        x: Math.random() * 100,
+        y: Math.random() * 100,
+        delay: Math.random() * 5,
+        duration: Math.random() * 3 + 2, // Twinkle duration
+        opacity: Math.random() * 0.8 , // Base opacity
+        twinkleSpeed: Math.random() * 2 + 1,
+      }))
+    );
+    setReady(true);
   }, []);
 
-return (
-    <div className="fixed inset-0 bg-black w-full h-full overflow-hidden -z-10">
-      <svg
-        className="absolute inset-0 w-full h-full"
-        viewBox="0 0 100 100"
-        preserveAspectRatio="xMidYMid slice"
-      >
-        <defs>
-          {/* Glow filter for energy lines */}
-          <filter id="glow">
-            <feGaussianBlur stdDeviation="0.6" result="coloredBlur" />
-            <feMerge>
-              <feMergeNode in="coloredBlur" />
-              <feMergeNode in="SourceGraphic" />
-            </feMerge>
-          </filter>
-        </defs>
+  if (!ready) return null;
 
-        {/* Central Omnitrix symbol 
-        <g transform="translate(50, 50)">
-          <motion.circle
-            cx="0"
-            cy="0"
-            r="5"
-            fill="none"
-            stroke="#00ff00"
-            strokeWidth="0.8"
-            filter="url(#glow)"
-            initial={{ scale: 0.8, opacity: 0 }}
-            animate={{ 
-              scale: [0.8, 1, 0.8],
-              opacity: [0.6, 1, 0.6]
-            }}
-            transition={{
-              duration: 2,
-              repeat: Infinity,
-              ease: "easeInOut"
-            }}
-          />
-          <motion.circle
-            cx="0"
-            cy="0"
-            r="3"
-            fill="none"
-            stroke="#00ff00"
-            strokeWidth="0.5"
-            filter="url(#glow)"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: [0.4, 0.8, 0.4] }}
-            transition={{
-              duration: 1.5,
-              repeat: Infinity,
-              ease: "easeInOut"
-            }}
-          />
-        </g> */}
+  return (
+    <div className="fixed inset-0 -z-10 overflow-hidden bg-black">
+      {/* Deep space background gradient */}
+      <div className="absolute inset-0 bg-gradient-to-b from-black via-gray-950 to-black" />
 
-        {/* Top left circuit pattern 
-        <g>
-          <motion.path
-            d="M 20,10.5 L 10,20 L 23,33"
-            fill="none"
-            stroke="#00ff00"
-            strokeWidth="0.8"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            filter="url(#glow)"
-            initial={{ pathLength: 0, opacity: 0 }}
-            animate={{ pathLength: 1, opacity: 0.8 }}
-            transition={{ duration: 1.5, delay: 0.3 }}
-          />
-          <motion.path
-            d="M 20,18 L 30,18 L 35,23"
-            fill="none"
-            stroke="#00ff00"
-            strokeWidth="0.8"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            filter="url(#glow)"
-            initial={{ pathLength: 0, opacity: 0 }}
-            animate={{ pathLength: 1, opacity: 0.7 }}
-            transition={{ duration: 1.5, delay: 0.5 }}
-          />
-          <motion.path
-            d="M 28,18 L 28,12 L 32,8"
-            fill="none"
-            stroke="#00ff00"
-            strokeWidth="0.6"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            filter="url(#glow)"
-            initial={{ pathLength: 0, opacity: 0 }}
-            animate={{ pathLength: 1, opacity: 0.6 }}
-            transition={{ duration: 1.5, delay: 0.7 }}
-          />
-        </g>*/}
-
-        {/* Top right circuit pattern 
-        <g>
-          <motion.path
-            d="M 80,10.5 L 90,20 L 77,33"
-            fill="none"
-            stroke="#00ff00"
-            strokeWidth="0.8"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            filter="url(#glow)"
-            initial={{ pathLength: 0, opacity: 0 }}
-            animate={{ pathLength: 1, opacity: 0.8 }}
-            transition={{ duration: 1.5, delay: 0.3 }}
-          />
-          <motion.path
-            d="M 80,18 L 70,18 L 65,23"
-            fill="none"
-            stroke="#00ff00"
-            strokeWidth="0.8"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            filter="url(#glow)"
-            initial={{ pathLength: 0, opacity: 0 }}
-            animate={{ pathLength: 1, opacity: 0.7 }}
-            transition={{ duration: 1.5, delay: 0.5 }}
-          />
-          <motion.path
-            d="M 72,18 L 72,12 L 68,8"
-            fill="none"
-            stroke="#00ff00"
-            strokeWidth="0.6"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            filter="url(#glow)"
-            initial={{ pathLength: 0, opacity: 0 }}
-            animate={{ pathLength: 1, opacity: 0.6 }}
-            transition={{ duration: 1.5, delay: 0.7 }}
-          />
-        </g> */}
-
-        {/* Left side circuit */}
-        <g>
-          <motion.path
-            d="M 0,35 L 22,35 L 45,48"
-            fill="none"
-            stroke="#00ff00"
-            strokeWidth="0.8"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            filter="url(#glow)"
-            initial={{ pathLength: 0, opacity: 0 }}
-            animate={{ pathLength: 1, opacity: 0.8 }}
-            transition={{ duration: 1.5, delay: 0.4 }}
-          />
-          <motion.path
-            d="M 10,35 L 10,45 L 25,52"
-            fill="none"
-            stroke="#00ff00"
-            strokeWidth="0.8"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            filter="url(#glow)"
-            initial={{ pathLength: 0, opacity: 0 }}
-            animate={{ pathLength: 1, opacity: 0.7 }}
-            transition={{ duration: 1.5, delay: 0.6 }}
-          />
-        </g>
-
-        {/* Right side circuit */}
-        <g>
-          <motion.path
-            d="M 100,35 L 78,35 L 55,48"
-            fill="none"
-            stroke="#00ff00"
-            strokeWidth="0.8"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            filter="url(#glow)"
-            initial={{ pathLength: 0, opacity: 0 }}
-            animate={{ pathLength: 1, opacity: 0.8 }}
-            transition={{ duration: 1.5, delay: 0.4 }}
-          />
-          <motion.path
-            d="M 90,35 L 90,45 L 75,52"
-            fill="none"
-            stroke="#00ff00"
-            strokeWidth="0.8"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            filter="url(#glow)"
-            initial={{ pathLength: 0, opacity: 0 }}
-            animate={{ pathLength: 1, opacity: 0.7 }}
-            transition={{ duration: 1.5, delay: 0.6 }}
-          />
-        </g>
-
-        {/* Bottom left circuit */}
-        <g>
-          {/*<motion.path
-            d="M 0,59 L 15,63 L 25,58"
-            fill="none"
-            stroke="#00ff00"
-            strokeWidth="0.8"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            filter="url(#glow)"
-            initial={{ pathLength: 0, opacity: 0 }}
-            animate={{ pathLength: 1, opacity: 0.8 }}
-            transition={{ duration: 1.5, delay: 0.8 }}
-          />*/}
-          <motion.path
-            d="M 8,75 L 8,75 L 30,70 L 47,55"
-            fill="none"
-            stroke="#00ff00"
-            strokeWidth="0.8"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            filter="url(#glow)"
-            initial={{ pathLength: 0, opacity: 0 }}
-            animate={{ pathLength: 1, opacity: 0.8 }}
-            transition={{ duration: 1.5, delay: 0.9 }}
-          />
-          {/*<motion.path
-            d="M 12,70 L 18,70 L 18,65"
-            fill="none"
-            stroke="#00ff00"
-            strokeWidth="0.6"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            filter="url(#glow)"
-            initial={{ pathLength: 0, opacity: 0 }}
-            animate={{ pathLength: 1, opacity: 0.6 }}
-            transition={{ duration: 1.5, delay: 1.1 }}
-          />*/}
-        </g>
-
-        {/* Bottom right circuit */}
-        <g>
-          {/*<motion.path
-            d="M 100,59 L 85,63 L 75,58"
-            fill="none"
-            stroke="#00ff00"
-            strokeWidth="0.8"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            filter="url(#glow)"
-            initial={{ pathLength: 0, opacity: 0 }}
-            animate={{ pathLength: 1, opacity: 0.8 }}
-            transition={{ duration: 1.5, delay: 0.8 }}
-          />*/}
-          <motion.path
-            d="M 92,75 L 92,75 L 70,70 L 53,55"
-            fill="none"
-            stroke="#00ff00"
-            strokeWidth="0.8"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            filter="url(#glow)"
-            initial={{ pathLength: 0, opacity: 0 }}
-            animate={{ pathLength: 1, opacity: 0.8 }}
-            transition={{ duration: 1.5, delay: 0.9 }}
-          />
-          {/*<motion.path
-            d="M 88,70 L 82,70 L 82,65"
-            fill="none"
-            stroke="#00ff00"
-            strokeWidth="0.6"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            filter="url(#glow)"
-            initial={{ pathLength: 0, opacity: 0 }}
-            animate={{ pathLength: 1, opacity: 0.6 }}
-            transition={{ duration: 1.5, delay: 1.1 }}
-          />*/}
-        </g>
-
-        {/* Central connecting lines */}
-        <motion.path
-          d="M 50,30 L 50,45"
-          fill="none"
-          stroke="#00ff00"
-          strokeWidth="0.5"
-          strokeLinecap="round"
-          filter="url(#glow)"
-          initial={{ pathLength: 0, opacity: 0 }}
-          animate={{ pathLength: 1, opacity: 0.5 }}
-          transition={{ duration: 1.5, delay: 1 }}
-        />
-        <motion.path
-          d="M 50,55 L 50,75"
-          fill="none"
-          stroke="#00ff00"
-          strokeWidth="0.5"
-          strokeLinecap="round"
-          filter="url(#glow)"
-          initial={{ pathLength: 0, opacity: 0 }}
-          animate={{ pathLength: 1, opacity: 0.5 }}
-          transition={{ duration: 1.5, delay: 1.2 }}
-        />
-      </svg>
-
-      {/* Animated energy particles */}
-      <div className="absolute inset-0 pointer-events-none">
-        {dotProps.map((props, i) => (
+      {/* Twinkling stars */}
+      <div className="absolute inset-0">
+        {stars.map((star, i) => (
           <motion.div
-            key={i}
-            className="absolute w-1 h-1 sm:w-1.5 sm:h-1.5 md:w-2 md:h-2 bg-[#00FF00] rounded-full"
+            key={`star-${i}`}
+            className="absolute rounded-full bg-white"
             style={{
-              left: `${props.left}%`,
-              top: `${props.top}%`,
-              filter: 'blur(1px)',
+              width: star.size,
+              height: star.size,
+              left: `${star.x}%`,
+              top: `${star.y}%`,
+              boxShadow: `0 0 ${star.size * 2}px rgba(255, 255, 255, 0.8)`,
             }}
             animate={{
-              opacity: [0, 2, 0],
-              scale: [0, 1.6, 0],
+              opacity: [star.opacity, star.opacity + 0.5, star.opacity],
+              scale: [1, 1.2, 1],
             }}
             transition={{
-              duration: props.duration,
+              duration: star.twinkleSpeed,
+              delay: star.delay,
               repeat: Infinity,
-              delay: props.delay,
               ease: "easeInOut",
             }}
           />
         ))}
       </div>
+
+      {/* Distant nebula glow (subtle green tint for Ben 10 theme) */}
+      <motion.div
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          background:
+            "radial-gradient(ellipse at 30% 40%, rgba(0, 255, 0, 0.03) 0%, transparent 50%), radial-gradient(ellipse at 70% 60%, rgba(100, 200, 255, 0.02) 0%, transparent 50%)",
+        }}
+        animate={{
+          opacity: [0.3, 0.5, 0.3],
+        }}
+        transition={{
+          duration: 8,
+          repeat: Infinity,
+          ease: "easeInOut",
+        }}
+      />
+
+      {/* Shooting stars */}
+      {Array.from({ length: 5 }).map((_, i) => (
+        <motion.div
+          key={`shooting-star-${i}`}
+          className="absolute h-0.5 bg-gradient-to-r from-white via-white to-transparent"
+          style={{
+            width: Math.random() * 100 + 50,
+            left: `${Math.random() * 100}%`,
+            top: `${Math.random() * 100}%`,
+            rotate: "-45deg",
+            filter: "blur(0.5px)",
+          }}
+          animate={{
+            x: [0, 300],
+            y: [0, 300],
+            opacity: [0, 1, 0],
+          }}
+          transition={{
+            duration: 2,
+            delay: i * 4 + Math.random() * 3,
+            repeat: Infinity,
+            repeatDelay: 10,
+            ease: "easeOut",
+          }}
+        />
+      ))}
+
+    
+
+      {/* Distant star clusters */}
+      {Array.from({ length: 5 }).map((_, i) => {
+        const clusterX = Math.random() * 100;
+        const clusterY = Math.random() * 100;
+        return (
+          <motion.div
+            key={`cluster-${i}`}
+            className="absolute"
+            style={{
+              left: `${clusterX}%`,
+              top: `${clusterY}%`,
+            }}
+          >
+            {Array.from({ length: 5 }).map((_, j) => (
+              <motion.div
+                key={`cluster-star-${j}`}
+                className="absolute w-1 h-1 bg-white/60 rounded-full"
+                style={{
+                  left: `${(Math.random() - 0.5) * 40}px`,
+                  top: `${(Math.random() - 0.5) * 40}px`,
+                }}
+                animate={{
+                  opacity: [0.3, 0.7, 0.3],
+                }}
+                transition={{
+                  duration: 3,
+                  delay: j * 0.1 + i * 0.5,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                }}
+              />
+            ))}
+          </motion.div>
+        );
+      })}
+
+      {/* Subtle green tint overlay for Ben 10 theme */}
+      <div className="absolute inset-0 bg-gradient-to-b from-green-950/5 via-transparent to-green-950/5 pointer-events-none" />
     </div>
   );
 }

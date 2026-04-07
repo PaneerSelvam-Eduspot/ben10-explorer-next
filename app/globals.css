@@ -148,9 +148,9 @@ body {
 .radial-bg-light {
   background: radial-gradient(
     circle at 0% 0%,
-    rgb(147, 147, 147) 0%,
+    rgb(143, 197, 100) 0%,
     transparent 100%
-  ), rgb(73, 73, 73);
+  ), rgb(44, 161, 44);
 }
 
 

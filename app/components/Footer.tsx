@@ -23,10 +23,10 @@ export default function Footer() {
 
   return (
     <footer className="w-full bg-black z-10 border-t bottom-0 left-0 right-0 border-[#00FF00]/20 py-12 px-6 mt-auto">
-      <div className="max-w-8xl mx-auto">
+      <div className="max-w-6xl mx-auto">
         
         {/* Main Content */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-12 mb-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 p-6 gap-12 mb-12">
 
           {/* Feedback Section */}
           <div className="space-y-4">

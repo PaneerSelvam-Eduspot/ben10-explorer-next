@@ -4,17 +4,19 @@ import { useQuery } from '@tanstack/react-query';
 
 export interface Alien {
   _id: string;
+  id: number;
   name: string;
   species: string;
   planet: string;
   abilities: string[] | string;
   image: string;
+  transform: string;
   series: string;
   firstAppearance: string;
   description: string;
 }
 
-const API_BASE_URL = 'https://ben10-api-u7dc.onrender.com/api/v1';
+const API_BASE_URL = `${process.env.NEXT_PUBLIC_API_URL}/api/v1/aliens`;
 const SERIES_SLUGS = ['classic', 'alien-force', 'ultimate-alien'];
 
 const fetchAllSeriesData = async (): Promise<Alien[]> => {

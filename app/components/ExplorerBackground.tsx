@@ -4,9 +4,6 @@ import { motion } from "framer-motion";
 import { useEffect, useMemo, useState } from "react";
 
 
-
-
-
 export default function ExplorerBackground() {
 
  const [blobs, setBlobs] = useState<{
