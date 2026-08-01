@@ -1,12 +1,11 @@
 generator client {
-  provider        = "prisma-client-js"    // ✅ was "prisma-client" — this is why chatHistory was undefined
+  provider        = "prisma-client-js"    
   output          = "../generated/prisma"
-  previewFeatures = ["driverAdapters"]    // ✅ required for PrismaPg adapter in prisma.ts
+  previewFeatures = ["driverAdapters"]   
 }
 
 datasource db {
-  provider  = "postgresql"
-  url       = env("DATABASE_URL")         // ✅ was missing entirely — Prisma requires this
+  provider  = "postgresql"   
 }
 
 model Favorite {
@@ -31,6 +30,17 @@ model ChatHistory {
   user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   
   @@index([userId])
+}
+
+model ChatSession {
+  id        String   @id @default(cuid())
+  userId    String
+  title     String   @default("New Chat")
+  messages  String   @default("[]")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([userId, updatedAt])
 }
 
 model User {

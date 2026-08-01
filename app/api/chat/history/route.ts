@@ -32,7 +32,7 @@ export async function GET(req: NextRequest) {
 }
 
 // POST - Save chat history for logged-in user
-export async function POST(req: NextRequest) {
+/*export async function POST(req: NextRequest) {
   try {
     const session = await auth.api.getSession({ headers: await headers() });
     if (!session?.user) {
@@ -65,7 +65,7 @@ export async function POST(req: NextRequest) {
     console.error('[history/route] POST:', error);
     return NextResponse.json({ error: 'Failed to save chat history' }, { status: 500 });
   }
-}
+}*/
 
 // DELETE - Clear chat history for logged-in user
 export async function DELETE(req: NextRequest) {
