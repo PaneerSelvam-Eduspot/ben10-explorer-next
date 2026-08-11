@@ -337,16 +337,22 @@ export default function RagPage({ onClose }: { onClose?: () => void }) {
           <span className="text-sm text-gray-400">Today</span>
         </div>
         <div className="flex flex-row gap-4">
-          <SquarePenIcon
-            className="h-4 w-4 text-gray-500 cursor-pointer hover:text-green-500 transition-colors"
+          <button
+            type="button"
             onClick={handleClearChat}
-            title="New Chat"
-          />
-          <MinusIcon
-            className="h-4 w-4 text-gray-500 cursor-pointer hover:text-red-500 transition-colors"
+            aria-label="New Chat"
+            className="text-gray-500 hover:text-green-500 transition-colors"
+          >
+            <SquarePenIcon className="h-4 w-4" />
+          </button>
+          <button
+            type="button"
             onClick={() => onClose?.()}
-            title="Close"
-          />
+            aria-label="Close"
+            className="text-gray-500 hover:text-red-500 transition-colors"
+          >
+            <MinusIcon className="h-4 w-4" />
+          </button>
         </div>
       </header>
 

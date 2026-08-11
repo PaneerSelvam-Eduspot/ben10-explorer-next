@@ -96,8 +96,11 @@ export default function OmnitrixLoader() {
       }}
       onError={(e) => {
         // Fallback if image fails to load
+        const fallback = e.currentTarget.nextElementSibling;
         e.currentTarget.style.display = 'none';
-        e.currentTarget.nextElementSibling.style.display = 'block';
+        if (fallback instanceof HTMLElement) {
+          fallback.style.display = 'block';
+        }
       }}
     />
     {/* SVG Fallback */}

@@ -123,7 +123,7 @@ export async function POST(req: Request) {
     // 5️⃣ Vector search AstraDB — singleton db
     const collection = await db.collection(ASTRA_DB_COLLECTION!);
     const docs = await collection
-      .find(null, { sort: { $vector: vector }, limit: 6 })
+      .find({}, { sort: { $vector: vector }, limit: 6 })
       .toArray();
 
     const docContext = docs.map((d) => d.text).join("\n\n");

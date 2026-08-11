@@ -14,7 +14,11 @@ import { Card } from '@/components/ui/card';
 
 const PLACEHOLDER_URL_LARGE = 'https://placehold.co/320x320/059669/FFFFFF?text=OMNITRIX';
 
-export default function AlienDetail({ name }) {
+type AlienDetailProps = {
+  name: string;
+};
+
+export default function AlienDetail({ name }: AlienDetailProps) {
   const [loading, setLoading] = useState(true);
   const { allAliens = [], series } = useAliens();
   const router = useRouter();

@@ -16,7 +16,9 @@ export interface Alien {
   description: string;
 }
 
-const API_BASE_URL = `${process.env.NEXT_PUBLIC_API_URL}/api/v1/aliens`;
+// Now served internally by app/api/aliens/[series]/route.ts, backed by Postgres.
+// No external ben10-api / Mongo dependency at runtime anymore.
+const API_BASE_URL = `/api/aliens`;
 const SERIES_SLUGS = ['classic', 'alien-force', 'ultimate-alien'];
 
 const fetchAllSeriesData = async (): Promise<Alien[]> => {
@@ -33,11 +35,12 @@ const fetchAllSeriesData = async (): Promise<Alien[]> => {
   const uniqueAliensMap = new Map<string, Alien>();
 
   combinedAliens.forEach((alien) => {
+    const rawSeries = alien.series as unknown;
     const normalizedSeries =
-      typeof alien.series === 'string'
-        ? alien.series
-        : Array.isArray(alien.series)
-        ? alien.series.join(', ')
+      typeof rawSeries === 'string'
+        ? rawSeries
+        : Array.isArray(rawSeries)
+        ? rawSeries.join(', ')
         : 'Unknown';
 
     uniqueAliensMap.set(alien.name, { ...alien, series: normalizedSeries });
