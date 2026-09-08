@@ -39,7 +39,6 @@ export default function Home() {
 
   const SHRINK_MS = 450;
   const HOLD_MS = 400;
-  const GROW_MS = 450;
   
   useEffect(() => {
     if (isFirstRender.current) {
@@ -62,10 +61,6 @@ export default function Home() {
       clearTimeout(growTimer);
     };
   }, [currentIndex]);
-
-  const SHRINK_MS = 450;
-  const HOLD_MS = 400;
-  const GROW_MS = 450;
   
   useEffect(() => {
     if (isFirstRender.current) {
