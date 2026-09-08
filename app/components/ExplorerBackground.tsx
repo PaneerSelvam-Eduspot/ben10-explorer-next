@@ -22,7 +22,7 @@ export default function ExplorerBackground() {
         size: Math.random() * 120 + 40,
         x: Math.random() * 100,
         y: Math.random() * 100,
-        delay: Math.random() * 4,
+        delay: Math.random() * 8,
         duration: Math.random() * 10 + 6,
         scale: Math.random() * 0.6 + 0.7,
       }))
@@ -69,9 +69,9 @@ export default function ExplorerBackground() {
               filter: "blur(1px)",
             }}
             animate={{
-              y: ["0%", "-40%", "0%"],
-              x: ["0%", "5%", "-3%", "0%"],
-              scale: [b.scale, b.scale + 0.3, b.scale],
+              y: [0, -12, 0],
+              x: [0, 4, -3, 0],
+              scale: [b.scale, b.scale + 0.4, b.scale],
               opacity: [0.8, 1, 0.8],
             }}
             transition={{

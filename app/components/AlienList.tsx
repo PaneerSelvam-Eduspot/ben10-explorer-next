@@ -10,6 +10,8 @@ import { faCircleDot } from '@fortawesome/free-solid-svg-icons/faCircleDot';
 import { faHeart } from '@fortawesome/free-solid-svg-icons';
 import { useSession } from '@/lib/auth-client'; 
 import { toast } from 'sonner';
+import { useQueryClient } from '@tanstack/react-query';
+import Image from 'next/image';
 
 const PLACEHOLDER_URL = 'https://placehold.co/128x128/059669/FFFFFF?text=OMNITRIX';
 
@@ -24,6 +26,7 @@ export default function AlienList() {
   const [isMoreLoading, setIsMoreLoading] = useState(false);
 
   const isLoggedIn = !!session?.user;
+  
 
   // Load favorites from localStorage on mount
   useEffect(() => {
@@ -31,6 +34,7 @@ export default function AlienList() {
       setFavorites([]);
       return;
     }
+
     
    const fetchFavorites = async () => {
     setIsFavoritesLoading(true);
@@ -52,6 +56,8 @@ export default function AlienList() {
 
    fetchFavorites();
   }, [isLoggedIn]);
+
+
 
   // Toggle favorite
   const toggleFavorite = async (alienName: string) => {
@@ -213,10 +219,12 @@ export default function AlienList() {
                 className="flex-1 flex flex-col p-6"
                 onClick={() => router.push(`/alien/${encodeURIComponent(alien.name)}`)}
               >
-                <motion.img
+                <Image
                   className="w-32 h-32 flex-shrink-0 mx-auto radial-bg-dark rounded-full object-contain text-[#00FF00]/80 border-3 border-[#00FF00]/70 p-2 aspect-square"
                   src={alien.image || PLACEHOLDER_URL}
                   alt={alien.name}
+                  width={128}
+                  height={128}
                   onError={(e) => {
                     (e.currentTarget as HTMLImageElement).onerror = null;
                     (e.currentTarget as HTMLImageElement).src = PLACEHOLDER_URL;
@@ -235,11 +243,16 @@ export default function AlienList() {
       {visibleAliens.length < filteredAliens.length && (
         <div className="flex items-center justify-center">
          {isMoreLoading ? (
-          <FontAwesomeIcon 
-               icon={faCircleDot}
-               className="animate-spin rotate-180 text-2xl text-white/70 mt-5 duration-200"
-              
-          />
+            <motion.img 
+              src='./ben10-omnitrix.png'
+              className='h-8 w-8 '
+              animate={{ rotate: 360}}
+              transition={{
+                duration: 1,
+                repeat: Infinity,
+                ease: "linear"
+              }}
+            />
           ) : (    <motion.button 
                     className={` px-6 py-2 mt-4 rounded-md relative radial-bg hover:scale-101 active:scale-95`}
                     initial={{ "--x": "100%", scale: 1 }}

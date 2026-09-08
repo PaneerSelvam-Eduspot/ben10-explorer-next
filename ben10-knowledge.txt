@@ -1952,7 +1952,7 @@ A large, insect-like Lepidopterran alien with large wings and four eyes. He can 
 === ALIEN START ===
 **Alien Name:** Ripjaws  
 **Species:** Piscciss Volann  
-**Series:** Ben 10 Classic  
+**Series:** Ben 10 Classic
 **Homeworld:** Piscciss  
 **First Appearance:** The Krakken  
 **Abilities:**

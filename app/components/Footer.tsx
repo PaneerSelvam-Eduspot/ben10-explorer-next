@@ -1,6 +1,8 @@
 'use client';
 
 import { useState } from 'react';
+import { POST } from '../api/chat/route';
+import { NextResponse } from 'next/server';
 
 export default function Footer() {
   const [email, setEmail] = useState('');
@@ -12,13 +14,28 @@ export default function Footer() {
     if (!email || !feedback) return;
     
     setIsSubmitting(true);
-    // Add your submission logic here
-    setTimeout(() => {
+    
+    try{
+      const res = await fetch('/api/feedback', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, comment: feedback }),
+      });
+
+      if(!res.ok){
+        const string = await res.json();
+        alert('The submission was failed!');
+      }
+      else{
+        setEmail('');
+        setFeedback('');
+        alert('Thank you for your feedback!');
+      }
+    } catch (error) {
+      console.error("Error saving feedback", error);
+    } finally {
       setIsSubmitting(false);
-      setEmail('');
-      setFeedback('');
-      alert('Thank you for your feedback!');
-    }, 1000);
+    }
   };
 
   return (

@@ -41,26 +41,70 @@ function getErrorMessage(status: number): string {
   }
 }
 
+const dotVariants = {
+  animate: {
+    opacity: [0.3, 1, 0.3],
+  }        
+}
+
 // ── LoadingBubble ─────────────────────────────────────────────────────────────
 const LoadingBubble = () => (
   <div className="flex gap-3 items-start">
     <div className="h-7 w-7 bg-[#006A4E] shrink-0 rounded-full overflow-hidden">
-      <img src="./ben10.png" alt="assist10" className="w-full h-full object-cover" />
+      <img src="/ben10.png" alt="assist10" className="w-full h-full object-cover" />
     </div>
     <div className="bg-gray-800/50 border border-gray-700/50 rounded-lg p-3 flex items-center gap-2">
-      <Loader2 className="h-4 w-4 animate-spin text-green-500" />
-      <span className="text-sm text-gray-400">Thinking...</span>
+      <div className="flex gap-1"> 
+        {[0,1,2].map((i) => (
+          <motion.span 
+           key={i}
+           className="h-2 w-2 rounded-full bg-green-500"
+           variants={dotVariants}
+           animate='animate'
+           transition={{
+            duration: 1,
+            repeat: Infinity,
+            delay: i * 0.2,
+           }}
+          />
+        ))}
+      </div>
     </div>
   </div>
 );
+
+function TypewriterText({ text }: { text: string }) {
+  const [displayedText, setDisplayedText] = useState("");
+  const textRef = useRef(text);
+  const indexRef = useRef(0);
+
+  // Keep textRef pointing at the LATEST text every render,
+  // without restarting the interval below.
+  textRef.current = text; // what should this always equal?
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      if (indexRef.current < textRef.current.length) {
+        indexRef.current += 1;
+        setDisplayedText(textRef.current.slice(0, indexRef.current));  // how much of the string, up to where?
+      }
+    }, 20); // ~20ms per character — tweak to taste
+
+    return () => clearInterval(interval);
+  }, []); // empty array — set up ONCE, never restart
+
+  return <p className="text-sm whitespace-pre-wrap break-words">{displayedText}</p>;
+}
 
 // ── Bubble ────────────────────────────────────────────────────────────────────
 const Bubble = ({
   message,
   userName,
+  isStreaming
 }: {
   message: Message;
   userName?: string | null;
+  isStreaming: boolean;
 }) => {
   const { content, role, timestamp, isError } = message;
   const isUser = role === "user";
@@ -75,7 +119,7 @@ const Bubble = ({
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.2 }}
         >
-          <img src="./ben10.png" alt="assist10" className="w-full h-full object-cover" />
+          <img src="/ben10.png" alt="assist10" className="w-full h-full object-cover" />
         </motion.div>
       )}
 
@@ -98,7 +142,7 @@ const Bubble = ({
               <span className="text-xs text-amber-400 font-medium">Notice</span>
             </div>
           )}
-          <p className="text-sm whitespace-pre-wrap break-words">{content}</p>
+          {isStreaming ? <TypewriterText text={content}/> : <p className="text-sm whitespace-pre-wrap break-words">{content}</p>}
         </motion.div>
         {timestamp && (
           <span className="text-xs text-gray-500 mt-1 block">{timestamp}</span>
@@ -313,7 +357,7 @@ export default function RagPage({ onClose }: { onClose?: () => void }) {
   if (isPending) {
     return (
       <div className="h-[60dvh] w-[min(60vh,calc(100vw-2rem))] radial-bg flex items-center justify-center rounded-xl z-50 fixed bottom-5 right-5">
-        <Loader2 className="h-8 w-8 animate-spin text-green-500" />
+        <LoadingBubble />
       </div>
     );
   }
@@ -365,7 +409,7 @@ export default function RagPage({ onClose }: { onClose?: () => void }) {
                 <div className="flex justify-center">
                   <div className="bg-green-600/10 rounded-full border border-green-500 overflow-hidden">
                     <motion.img
-                      src="./ben10.png"
+                      src="/ben10.png"
                       width={64}
                       height={64}
                       alt="Ben10"
@@ -390,9 +434,10 @@ export default function RagPage({ onClose }: { onClose?: () => void }) {
             </div>
           ) : (
             <div className="space-y-6 pb-4">
-              {messages.map((m, i) => (
-                <Bubble key={i} message={m} userName={userName} />
-              ))}
+              {messages.map((m, i) => {
+                const isStreaming = loading === true && i === messages.length - 1 && m.role === "assistant";
+                return <Bubble key={i} message={m} userName={userName} isStreaming={isStreaming} />
+              })}
               {/* LoadingBubble only shows between send and first token arriving */}
               {loading && messages[messages.length - 1]?.role !== "assistant" && (
                 <LoadingBubble />
@@ -428,7 +473,7 @@ export default function RagPage({ onClose }: { onClose?: () => void }) {
               className="bg-green-600 hover:bg-green-500 disabled:bg-gray-700 shrink-0 rounded-full"
             >
               {loading ? (
-                <Loader2 className="h-4 w-4 animate-spin" />
+                <Loader2 className="animate-spin" size={32} />
               ) : (
                 <ArrowUp className="h-4 w-4" />
               )}

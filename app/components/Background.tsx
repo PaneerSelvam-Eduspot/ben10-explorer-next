@@ -152,3 +152,29 @@ export default function Background() {
     </div>
   );
 }
+
+
+
+
+{/*function TypewriterText({ text }: { text: string }) {
+  const [displayedText, setDisplayedText] = useState("");
+  const textRef = useRef(text);
+  const indexRef = useRef(0);
+
+  // Keep textRef pointing at the LATEST text every render,
+  // without restarting the interval below.
+  textRef.current = text; // what should this always equal?
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      if (indexRef.current < textRef.current.length) {
+        indexRef.current += 1;
+        setDisplayedText(textRef.current.slice(0, indexRef.current));  // how much of the string, up to where?
+      }
+    }, 20); // ~20ms per character — tweak to taste
+
+    return () => clearInterval(interval);
+  }, []); // empty array — set up ONCE, never restart
+
+  return <p className="text-sm whitespace-pre-wrap break-words">{displayedText}</p>;
+}*/}

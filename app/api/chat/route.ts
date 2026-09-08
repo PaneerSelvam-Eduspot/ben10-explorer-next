@@ -1,7 +1,7 @@
 import { DataAPIClient } from "@datastax/astra-db-ts";
 import { GoogleGenerativeAI } from "@google/generative-ai";
 import { createGoogleGenerativeAI } from "@ai-sdk/google";
-import { streamText } from "ai";
+import { generateText, streamText } from "ai";
 import { headers } from "next/headers";
 import { auth } from "@/lib/auth";
 import prisma from "@/lib/prisma";
@@ -13,6 +13,7 @@ const {
   ASTRA_DB_APPLICATION_TOKEN,
   GEMINI_API_KEY,
 } = process.env;
+
 
 // ── Singleton AstraDB client ──────────────────────────────────────────────────
 // Initialized once on cold start — reused across all requests.
@@ -155,11 +156,26 @@ export async function POST(req: Request) {
     // Capture userId for use inside onFinish closure
     const userId = session.user.id;
 
+  async function resolveModel(): Promise<string>{
+   try{
+     await generateText({
+      model: google("gemini-3.5-flash"),
+      prompt: "Hello"
+    })
+    return "gemini-3.5-flash";
+   } catch(err){
+    console.error("[chat/route] primary model failed", err);
+    return "gemini-3.1-flash-lite";
+   }
+  }
+
+
     // 8️⃣ Stream response
     // onFinish fires AFTER full response is streamed to client —
     // saves complete history atomically with no race condition
-    const result = streamText({
-      model: google("gemini-3-flash-preview"),
+   function runChat(modelId: string){
+    return streamText({
+      model: google(modelId),
       system: `
         You are a Ben 10 Encyclopedia and fan guide.
 
@@ -178,6 +194,7 @@ export async function POST(req: Request) {
         FORMAT:
         - ALIEN NAMES in caps.
         - Bullet points for abilities.
+        - Don't use *Bold* for heading.
 
         IDENTITY RULE:
         - You are NOT an AI model.
@@ -213,8 +230,12 @@ export async function POST(req: Request) {
         await saveHistory(userId, updatedHistory);
       },
     });
+}
+   
+  const modelId = await resolveModel();
+  const result = runChat(modelId);
 
-    return result.toTextStreamResponse();
+  return result.toTextStreamResponse();
 
   } catch (err: any) {
   if (err?.status === 429) {

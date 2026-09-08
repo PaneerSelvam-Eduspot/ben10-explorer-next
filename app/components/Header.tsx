@@ -36,6 +36,7 @@ export default function Header() {
       <div className="flex flex-row items-center justify-between">
         {/* Logo */}
         <div className="w-16 h-16 md:w-24 md:h-24 z-20">
+        <Link href="/">
           <motion.img
             src="/ben10-logo.png"
             alt="Ben 10 Logo"
@@ -43,10 +44,11 @@ export default function Header() {
             whileHover={{ scale: 1.05 }}
             transition={{ duration: 0.3 }}
           />
+        </Link>
         </div>
 
         {/* Desktop Navigation */}
-        <div className="hidden md:flex w-full md:max-w-2xl lg:max-w-4xl mx-auto mt-[-35] bg-black/70 relative z-10 border-b-2 border-l-2 border-r-2 border-[#00FF00]/70 shadow-[0_4px_30px_rgba(0,255,0,0.3)] rounded-lg">
+        <div className="hidden md:flex w-full md:max-w-2xl lg:max-w-4xl mx-auto mt-[-37] bg-black/70 relative z-10 border-b-3 border-[#00FF00]/70 shadow-[0_4px_30px_rgba(0,255,0,0.3)] rounded-b-md">
           <nav className="flex items-stretch w-full">
             {navItems.map((item, index) => {
               const isActive = pathname === item.href;
@@ -54,7 +56,7 @@ export default function Header() {
                 <Link
                   key={item.href}
                   href={item.href}
-                  className={`group relative flex-1 px-6 py-4 font-bold text-center transition-all duration-300 ease-in-out rounded-lg
+                  className={`group relative flex-1 px-6 py-4 font-bold text-center transition-all duration-300 ease-in-out
                     ${
                       isActive
                         ? "bg-[#00FF00]/50 text-white border-[#00FF00]/50 shadow-[0_0_20px_rgba(0,255,0,0.3)]"

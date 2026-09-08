@@ -26,6 +26,13 @@ model Alien {
   @@index([name])
 }
 
+model Feedback {
+  id               Int     @id @default(autoincrement())
+  email            String 
+  comment          String
+  createdAt        DateTime @default(now())
+}
+
 model Favorite {
   id        String   @id @default(cuid())
   userId    String

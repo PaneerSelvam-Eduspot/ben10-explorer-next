@@ -1,6 +1,6 @@
 'use client';
-import React, { createContext, useContext, useReducer, useCallback, useMemo } from 'react';
-import { useQuery } from '@tanstack/react-query';
+import React, { createContext, useContext, useReducer, useCallback, useMemo, useEffect } from 'react';
+import { useQuery, useQueryClient } from '@tanstack/react-query';
 
 export interface Alien {
   _id: string;
@@ -28,7 +28,6 @@ const fetchAllSeriesData = async (): Promise<Alien[]> => {
       return res.json();
     })
   );
-
   const results: Alien[][] = await Promise.all(fetchPromises);
   const combinedAliens = results.flat();
 
@@ -67,6 +66,9 @@ function useAlienSource() {
   const { data: allAliens = [], isLoading, error } = useQuery<Alien[], Error>({
     queryKey: ['allAliens'],
     queryFn: fetchAllSeriesData,
+    staleTime: 10 * 60 * 1000, // this data is basically static — don't refetch for 10 min
+    gcTime: 30 * 60 * 1000,   // keep it cached even if unmounted for a while
+    refetchOnWindowFocus: false, // alien roster doesn't change; no need to refetch on tab refocus
   });
 
   const [{ search, selectedAlienName, series, showFavorites }, dispatch] = useReducer(

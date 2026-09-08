@@ -39,7 +39,7 @@ export default function LoginNavbar() {
       >
         {/* User Icon */}
         <div 
-        className="md:w-10 md:h-10 px-2 rounded-full bg-black flex items-center justify-center mb-1"
+        className="md:w-10 md:h-10 h:8 w-8 p-1 rounded-full bg-black flex items-center justify-center mb-1"
         >
          {!isLoggedIn ? <User className="w-6 h-6 text-green-600" />: session.user?.name?.charAt(0).toUpperCase()}
         </div>

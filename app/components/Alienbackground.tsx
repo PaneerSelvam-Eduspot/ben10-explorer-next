@@ -1,14 +1,26 @@
 'use client';
 
 import { motion } from "framer-motion";
+import Image from "next/image";
 import { useEffect, useState } from "react";
 
 export default function AlienBackground({ transformImg }: { transformImg: string }) {
   const [ready, setReady] = useState(false);
+  const [darkSpots] = useState(() =>
+    Array.from({ length: 200 }, () => ({
+      size: Math.random() * 100 + 40,
+      x: Math.random() * 100,
+      y: Math.random() * 100,
+      duration: Math.random() * 5 + 4,
+      delay: Math.random() * 2,
+    }))
+  );
   console.log('transformImg:', transformImg);
   useEffect(() => {
     setReady(true);
   }, []);
+
+
 
   if (!ready) return null;
 
@@ -34,31 +46,28 @@ export default function AlienBackground({ transformImg }: { transformImg: string
           background: "radial-gradient(circle, rgba(0, 255, 0, 0.6) 0%, rgba(0, 255, 0, 0.3) 30%, transparent 70%)",
           filter: "blur(60px)",
         }}
-        animate={{ scale: [1, 1.2, 1], opacity: [0.8, 1, 0.8] }}
+        animate={{ opacity: [0.8, 1, 0.8] }}
         transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
       />
 
       {/* DARK SPOTS/SHADOWS */}
       <div className="absolute inset-0">
-        {Array.from({ length: 200 }).map((_, i) => {
-          const size = Math.random() * 100 + 40;
-          const x = Math.random() * 100;
-          const y = Math.random() * 100;
+        {darkSpots.map((spot, i) => {
           return (
             <motion.div
               key={`dark-${i}`}
               className="absolute rounded-full"
               style={{
-                width: size,
-                height: size,
-                left: `${x}%`,
-                top: `${y}%`,
+                width: spot.size,
+                height: spot.size,
+                left: `${spot.x}%`,
+                top: `${spot.y}%`,
                 background: "radial-gradient(circle, rgba(0, 50, 0, 0.6), transparent 100%)",
               }}
               animate={{ scale: [1, 1.2, 1], opacity: [0.4, 0.7, 0.4] }}
               transition={{
-                duration: Math.random() * 5 + 4,
-                delay: Math.random() * 2,
+                duration: spot.duration,
+                delay: spot.delay,
                 repeat: Infinity,
                 ease: "easeInOut",
               }}
@@ -132,8 +141,12 @@ export default function AlienBackground({ transformImg }: { transformImg: string
           
           <motion.img
             src={transformImg}
-            alt="Alien"
-            className="w-[360px] h-[360px] object-contain"
+            crossOrigin="anonymous"
+            alt="AlienTransformImage"
+            loading="eager"
+            height={360}
+            width={360}
+            className="object-contain"
           />
           
         </motion.div>
@@ -145,3 +158,9 @@ export default function AlienBackground({ transformImg }: { transformImg: string
     </div>
   );
 }
+
+
+
+
+
+

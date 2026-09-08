@@ -231,3 +231,48 @@ background-image: linear-gradient(
     transform: rotate(360deg);
   }
 }
+
+
+/* Scroll-driven stacking cards */
+.series-stack {
+  position: relative;
+}
+
+.series-stack-item {
+  min-height: 100vh;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+}
+
+.series-stack-item:not(:first-child) {
+  margin-top: -60vh;
+}
+
+.series-stack-card {
+  position: sticky;
+  top: 10vh;
+  width: min(92vw, 900px);
+  transform-origin: top center;
+  will-change: transform;
+}
+
+
+.loader {
+  width: 60px;
+  aspect-ratio: 4;
+  background: radial-gradient(circle closest-side,#00FF00 90%,#0000) 0/calc(100%/3) 100% space;
+  clip-path: inset(0 100% 0 0);
+  animation: l1 1s steps(4) infinite;
+}
+
+.loader-reverse {
+  width: 60px;
+  aspect-ratio: 4;
+  background: radial-gradient(circle closest-side,#00FF00 90%,#0000) 0/calc(100%/3) 100% space;
+  clip-path: inset(0 100% 0 0);
+  animation: l1 1s steps(4) infinite;
+  animation-direction: reverse ;
+}
+
+@keyframes l1 {to{clip-path: inset(0 -34% 0 0)}}

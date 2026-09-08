@@ -1,9 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import fs from 'node:fs/promises';
-import path from 'node:path';
 import prisma from '@/lib/prisma';
-
-export const runtime = 'nodejs';
 
 // Same slug -> series-name mapping the old ben10-api used, kept identical
 // so the frontend's SERIES_SLUGS in lib/Store.tsx doesn't need to change.
@@ -13,51 +9,8 @@ const seriesMap: Record<string, string> = {
   'ultimate-alien': 'Ben 10 Ultimate Alien',
 };
 
-type RawAlien = {
-  id: number;
-  name: string;
-  species: string;
-  planet: string;
-  abilities: string;
-  image: string;
-  transform: string;
-  series: string;
-  firstAppearance: string;
-  description: string;
-};
-
 function getErrorMessage(error: unknown) {
   return error instanceof Error ? error.message : 'Unknown error';
-}
-
-function shapeAlien(a: RawAlien) {
-  return {
-    _id: String(a.id),
-    id: a.id,
-    name: a.name,
-    species: a.species,
-    planet: a.planet,
-    abilities: a.abilities,
-    image: `/api/alien-assets/image/${encodeURIComponent(a.image)}`,
-    transform: `/api/alien-assets/transform/${encodeURIComponent(a.transform)}`,
-    series: a.series,
-    firstAppearance: a.firstAppearance,
-    description: a.description,
-  };
-}
-
-async function readSeedAliens(seriesParam: string, name: string | null, id: string | null) {
-  const filePath = path.join(process.cwd(), 'scripts', 'migration-seed', 'data', `${seriesParam}.json`);
-  const raw = await fs.readFile(filePath, 'utf-8');
-  const aliens = JSON.parse(raw) as RawAlien[];
-
-  return aliens
-    .filter((alien) => {
-      const nameMatch = !name || alien.name.toLowerCase().includes(name.toLowerCase());
-      const idMatch = !id || alien.id === Number(id);
-      return nameMatch && idMatch;
-    })
-    .map(shapeAlien);
 }
 
 // GET /api/aliens/:series?name=&id=
@@ -86,11 +39,10 @@ export async function GET(
       orderBy: { sourceId: 'asc' },
     });
 
-    // image/transform are already full Cloudinary URLs — no baseUrl prefixing needed.
-    if (aliens.length === 0) {
-      return NextResponse.json(await readSeedAliens(seriesParam, name, id));
-    }
-
+    // image/transform are already full Cloudinary URLs — no local fallback,
+    // no baseUrl prefixing needed. If this is empty, the DB genuinely has no
+    // matching rows — that's a real signal to re-run scripts/migrateAliens.ts,
+    // not something to paper over with a JSON file read.
     const shaped = aliens.map((a) => ({
       _id: a.id,
       id: a.sourceId,

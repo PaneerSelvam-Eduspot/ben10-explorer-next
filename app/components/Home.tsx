@@ -1,11 +1,11 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useLoading } from './LoadingProvider';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import ExplorerBackground from './ExplorerBackground';
-import NavBar from './LoginNavbar';
+import SeriesStack from './SeriesStack';
 
 const series = [
   {
@@ -31,8 +31,37 @@ const series = [
 export default function Home() {
   const { showLoader, hideLoader } = useLoading();
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [descIndex, setDescIndex] = useState(0);
+  const [isMorphing, setIsMorphing] = useState(false);
+  const isFirstRender = useRef(true);
   const [direction, setDirection] = useState<'next' | 'prev'>('next');
   const [isLoaded, setIsLoaded] = useState(false);
+
+  const SHRINK_MS = 450;
+  const HOLD_MS = 400;
+  const GROW_MS = 450;
+  
+  useEffect(() => {
+    if (isFirstRender.current) {
+      isFirstRender.current = false;
+      return;
+    }
+
+    setIsMorphing(true);
+
+    const swapTimer = setTimeout(() => {
+      setDescIndex(currentIndex);
+    }, SHRINK_MS + HOLD_MS);
+
+    const growTimer = setTimeout(() => {
+      setIsMorphing(false);
+    }, SHRINK_MS + HOLD_MS);
+
+    return () => {
+      clearTimeout(swapTimer);
+      clearTimeout(growTimer);
+    };
+  }, [currentIndex]);
 
   useEffect(() => {
     showLoader();
@@ -61,6 +90,7 @@ export default function Home() {
   const currentSeries = series[currentIndex]; 
   const prevSeries = series[(currentIndex - 1 + series.length) % series.length];
   const nextSeries = series[(currentIndex + 1) % series.length];
+  const descSeries = series[descIndex];
 
   return (
     <div>
@@ -85,6 +115,7 @@ export default function Home() {
                     key={`prev-${currentIndex}`}
                     src={prevSeries.image}
                     alt="Previous series"
+                    loading='eager'
                     className="absolute w-full h-full object-contain pointer-events-none"
                     initial={{ x: -130, scale: 0.6, opacity: 0, filter: 'blur(5px)' }}
                     animate={{ 
@@ -110,6 +141,7 @@ export default function Home() {
                     key={`current-${currentIndex}`}
                     src={currentSeries.image}
                     alt={currentSeries.name}
+                    loading='eager'
                     className="absolute w-full h-full object-contain z-10"
                     initial={{
                       x: direction === 'next' ? 95 : -95,
@@ -141,6 +173,7 @@ export default function Home() {
                     key={`next-${currentIndex}`}
                     src={nextSeries.image}
                     alt="Next series"
+                    loading='eager'
                     className="absolute w-full h-full object-contain pointer-events-none"
                     initial={{ x: 130, scale: 0.6, opacity: 0, filter: 'blur(5px)' }}
                     animate={{ 
@@ -163,64 +196,73 @@ export default function Home() {
                 </AnimatePresence>
               </div>
 
-              {/* Description */}
-              <AnimatePresence mode="wait">
-                <div className='flex-1 relative rounded-2xl'>
-                  {/* Outer border container with corner accents */}
-                  <div className="relative card-wrapper p-[3px] rounded-lg ">
-                    <div className='...'></div>
-                    {/* Inner content box */}
-                    <div className="card-content radial-bg-dark p-6 md:p-10 rounded-lg relative overflow-hidden">
-                      {/* Corner decorations 
-                      <div className="absolute top-0 left-0 w-8 h-8 border-t-4 border-l-4 border-[#00FF00] rounded-tl-lg"></div>
-                      <div className="absolute top-0 right-0 w-8 h-8 border-t-4 border-r-4 border-[#00FF00] rounded-tr-lg"></div>
-                      <div className="absolute bottom-0 left-0 w-8 h-8 border-b-4 border-l-4 border-[#00FF00] rounded-bl-lg"></div>
-                      <div className="absolute bottom-0 right-0 w-8 h-8 border-b-4 border-r-4 border-[#00FF00] rounded-br-lg"></div>
-                       */}
-                      
-                      <motion.div
-                        key={`desc-${currentIndex}`}
-                        className="relative z-10 "
-                        initial={{
-                          opacity: 0,
-                          y: direction === 'next' ? -70 : 70,
-                        }}
-                        animate={{
-                          opacity: 1,
-                          y: 0,
-                        }}
-                        exit={{
-                          opacity: 0,
-                          y: direction === 'next' ? 70 : -70,
-                        }}
-                        transition={{ duration: 0.5, ease: [0.45, 0, 0.55, 1], delay: 0.1 }}
-                      >
-                        {/* Title with tech styling */}
-                        <div className="mb-6 relative ">
-                         
-                          <motion.h2
-                            className="text-3xl font-black text-[#00FF00]/90 text-center tracking-wider uppercase"
-                            style={{
-                              textShadow: '0 0 20px rgba(0, 255, 0, 0.6), 0 2px 4px rgba(0, 0, 0, 0.8)',
-                            }}
-                          >
-                            {currentSeries.name}
-                          </motion.h2>
-                         
-                        </div>
+              <div className='flex-1 relative rounded-2xl flex justify-center'>
+                <motion.div
+                layout
+                transition={{ duration: SHRINK_MS / 1000, ease: [0.65, 0, 0.35, 1] }}
+                className='relative card-wrapper p-[3px] overflow-hidden'
+                style={{
+                  borderRadius: isMorphing ? '9999px' : '0.5rem',
+                  width: isMorphing ? 160 : '100%',
+                  height: isMorphing ? 160 : 'auto',
+                }}
+                >
+                  <motion.div
+                   layout
+                   className='card-content radial-bg-dark relative overflow-hidden flex items-center justify-center w-full h-full'
+                   style={{
+                      borderRadius: isMorphing ? '9999px' : '0.5rem'
+                   }}
+                  >
+                    {/* Spinning Omnitrix — visible only while morphing */}
+                    <AnimatePresence>
+                     {isMorphing && (
+                        <motion.img 
+                          key="omnitrix"
+                          src="/ben10-omnitrix.png"
+                          alt="Omnitrix"
+                          className='w-20 h-20 md:w-24 md:h-24 absolute'
+                          style={{ filter: 'drop-shadow(0 0 20px rgba(0, 255, 0, 0.6))'}}
+                          initial={{ opacity: 0, scale: 0.4, rotate: 0 }}
+                          animate={{ opacity: 1, scale: 1, rotate: 360 }}
+                          exit={{ opacity: 0, scale: 0.4 }}
+                          transition={{
+                            opacity: { duration: 0.25 },
+                            scale: { duration: 0.3, ease: 'easeOut' },
+                            rotate: { duration: 1, repeat: Infinity, ease: 'linear' }
+                          }}
+                        />
+                     )}
+                    </AnimatePresence>
 
-                        {/* Description text */}
-                        <p className="text-gray-200 text-sm md:text-base leading-relaxed max-w-2xl text-justify">
-                          {currentSeries.description}
-                        </p>
-
-                       
-                      </motion.div>
-                    </div>
-                  </div>
-                </div>
-              </AnimatePresence>
-
+                    {/* Text content */}
+                    <AnimatePresence mode='wait'>
+                      {!isMorphing && (
+                        <motion.div
+                          key={`desc-${descIndex}`}
+                          className='relative z-10 p-6 md:p-10 w-full'
+                          initial={{ opacity: 0, y: direction === 'next' ? -30 : 30 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          exit={{ opacity: 0 }}
+                          transition={{ duration: 0.4, ease: [0.45, 0, 0.55, 1] }}
+                        >
+                          <div className='mb-6 relative'>
+                            <motion.h2
+                             className='text-3xl font-black text-[#00FF00]/90 text-center tracking-wider uppercase'
+                             style={{ textShadow: '0 0 20px rgba(0, 255, 0, 0.6), 0 2px 4px rgba(0, 0, 0, 0.8)' }}
+                            >
+                              {descSeries.name}
+                            </motion.h2>
+                          </div>
+                          <p className='text-gray-200 text-sm md:text-base leading-relaxed max-w-2xl text-justify'>
+                            {descSeries.description}
+                          </p>
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+                  </motion.div>
+                </motion.div>
+              </div>
             </div>
           </div>
 
@@ -246,6 +288,7 @@ export default function Home() {
           </div>
         </div>
       )}
+      {/*<SeriesStack />*/}
     </div>
   );
 }

@@ -63,9 +63,9 @@ export default function LoginPage() {
                   opacity: [0.1, 0.15, 0.1],
                 }}
                 transition={{
-                  duration: 8 + (i % 4),
+                  duration: 3 + (i % 4),
                   repeat: Infinity,
-                  delay: i * 0.5,
+                  delay: i * 0.3,
                   ease: "easeInOut",
                 }}
               >
@@ -84,7 +84,18 @@ export default function LoginPage() {
         <Card className="w-96 max-w-md border border-green-200 bg-zinc-300 shadow-md shadow-gray-500">
           <motion.img
             src="/ben10-signup.png"
-            className="w-40 h-40 mx-auto"
+            className="w-40 h-40 mx-auto origin-bottom"
+            initial={{ y: -400, opacity: 0, scaleY: 1}}
+            animate={{
+              y: 0,
+              opacity: 1,
+              scaleY: [1, 0.8, 1.08, 0.97, 1],
+            }}
+            transition={{
+              y: { type: "spring", stiffness: 260, damping: 14, mass: 1 },
+              opacity: {duration: 0.2},
+              scaleY: { duration: 0.5, delay: 0.42, times: [0, 0.3, 0.55, 0.8, 1], ease: "easeOut" },
+            }}
           />
           <CardHeader className="space-y-1 text-center">
             <CardTitle className="text-2xl font-bold">Get Started or Sign In</CardTitle>

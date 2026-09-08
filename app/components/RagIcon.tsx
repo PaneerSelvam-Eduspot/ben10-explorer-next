@@ -44,7 +44,7 @@ export default function RagIcon() {
               <button className="w-15 h-15 " 
                 onClick={handleOnclick}>
                   <motion.img 
-                    src="./omnitrix.png"
+                    src="/omnitrix.png"
                     alt="omnitrix" 
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
