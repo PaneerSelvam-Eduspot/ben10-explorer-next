@@ -91,8 +91,8 @@
     "typescript": "^5"
   },
   "allowScripts": {
-    "@prisma/engines@7.9.1": true,
-    "prisma@7.9.1": true,
+    "@prisma/engines@7.2.0": true,
+    "prisma@7.2.0": true,
     "esbuild@0.27.1": true,
     "sharp@0.34.4": true,
     "unrs-resolver@1.11.1": true
