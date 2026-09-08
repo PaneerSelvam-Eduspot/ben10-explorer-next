@@ -11,19 +11,19 @@ const series = [
   {
     id: 1,
     name: 'Ben 10 Classic',
-    image: '/ben10-classic.png', 
+    image: '/ben10-classic.webp', 
     description: "This series follows ten-year-old Ben Tennyson, who accidentally finds the Omnitrix during a summer road trip with his Grandpa Max and cousin Gwen. The tone is lighthearted and episodic, centered on discovery as Ben learns to master the device's original ten unpredictable aliens. Facing villains like Vilgax and various B-movie monsters, the core theme is accountability, forcing an impulsive kid to grow into a responsible hero despite the watch's comedic misfires.",
   },
   {
     id: 2,
     name: 'Ben 10 Alien Force',
-    image: '/ben10-alienforce.png', 
+    image: '/ben10-alienforce.webp', 
     description: "Set five years later, the tone becomes darker and more serialized as 15-year-old Ben leads a new team alongside Gwen and a reformed Kevin Levin. Ben wields a new, controlled Omnitrix and ten different aliens to combat global threats. With Grandpa Max missing, the trio steps up as the new Plumbers, facing the existential Highbreed invasion. This era explores themes of maturity and leadership, as Ben transitions from an accidental hero to a strategic intergalactic defender.",
   },
   {
     id: 3,
     name: 'Ben 10 Ultimate Alien',
-    image: '/ben10-ultimatealien.png', 
+    image: '/ben10-ultimatealien.webp', 
     description: "Ben's identity is revealed to the world, forcing him to navigate global celebrity while dealing with the replacement Ultimatrix. This device introduces the 'Ultimate' feature, creating monstrous, battle-evolved versions of his aliens to handle cosmic-level threats. The narrative focuses on the weight of extreme power and public perception. Ben must manage villains like Aggregor and the god-like Diagon, pushing him to the absolute limits of his abilities and responsibility."
   },
 ];
@@ -35,7 +35,33 @@ export default function Home() {
   const [isMorphing, setIsMorphing] = useState(false);
   const isFirstRender = useRef(true);
   const [direction, setDirection] = useState<'next' | 'prev'>('next');
-  const [isLoaded, setIsLoaded] = useState(false);
+  const [isLoaded, setIsLoaded] = useState(true);
+
+  const SHRINK_MS = 450;
+  const HOLD_MS = 400;
+  const GROW_MS = 450;
+  
+  useEffect(() => {
+    if (isFirstRender.current) {
+      isFirstRender.current = false;
+      return;
+    }
+
+    setIsMorphing(true);
+
+    const swapTimer = setTimeout(() => {
+      setDescIndex(currentIndex);
+    }, SHRINK_MS + HOLD_MS);
+
+    const growTimer = setTimeout(() => {
+      setIsMorphing(false);
+    }, SHRINK_MS + HOLD_MS);
+
+    return () => {
+      clearTimeout(swapTimer);
+      clearTimeout(growTimer);
+    };
+  }, [currentIndex]);
 
   const SHRINK_MS = 450;
   const HOLD_MS = 400;
@@ -67,8 +93,7 @@ export default function Home() {
     showLoader();
     const timer = setTimeout(() => {
       hideLoader();
-      setIsLoaded(true);
-    }, 2000);
+    }, 1200);
 
     return () => {
       clearTimeout(timer);
@@ -94,7 +119,7 @@ export default function Home() {
 
   return (
     <div>
-      <ExplorerBackground />
+       <ExplorerBackground />
 
       {/* Show NOTHING until loading is done */}
       {!isLoaded && <div className="min-h-screen"></div>}
