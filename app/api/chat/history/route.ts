@@ -31,42 +31,6 @@ export async function GET(req: NextRequest) {
   }
 }
 
-// POST - Save chat history for logged-in user
-/*export async function POST(req: NextRequest) {
-  try {
-    const session = await auth.api.getSession({ headers: await headers() });
-    if (!session?.user) {
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
-    }
-
-    const userId = session.user.id;
-    const { messages } = await req.json();
-
-    if (!Array.isArray(messages)) {
-      return NextResponse.json({ error: 'messages must be an array' }, { status: 400 });
-    }
-
-    // ✅ prisma.chatHistory.upsert — was prisma.ChatHistory.upsert (crashes)
-    await prisma.chatHistory.upsert({
-      where: { userId },
-      update: {
-        messages: JSON.stringify(messages),
-        updatedAt: new Date(),
-      },
-      create: {
-        userId,
-        messages: JSON.stringify(messages),
-      },
-    });
-
-    return NextResponse.json({ success: true });
-
-  } catch (error) {
-    console.error('[history/route] POST:', error);
-    return NextResponse.json({ error: 'Failed to save chat history' }, { status: 500 });
-  }
-}*/
-
 // DELETE - Clear chat history for logged-in user
 export async function DELETE(req: NextRequest) {
   try {
