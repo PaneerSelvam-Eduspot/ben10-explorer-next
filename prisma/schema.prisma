@@ -37,13 +37,15 @@ model Feedback {
 model Favorite {
   id        String   @id @default(cuid())
   userId    String
-  alienName String
+  alienId   Int
   createdAt DateTime @default(now())
   
   user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  alien     Alien    @relation(fields: [alienId], references: [id], onDelete: Restrict)
   
-  @@unique([userId, alienName]) 
+  @@unique([userId, alienId]) 
   @@index([userId])
+  @@index([alienId])
 }
 
 model ChatHistory {
