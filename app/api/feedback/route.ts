@@ -1,21 +1,30 @@
 import { NextRequest, NextResponse } from "next/server";
 import prisma from "@/lib/prisma";
+import * as z from "zod";
+
+const requestSchema = z.object({
+    email: z.email(),
+    comment: z.string().min(2, "Too short").max(2000, "Too long")
+})
 
 export async function POST(req: NextRequest) {
     try{
         const body = await req.json();
-        const { email, comment } = body;
+        const { email, comment } = requestSchema.parse(body);
 
-        if(!email || !comment || !comment.length || comment.length > 2000){
-            return NextResponse.json({ message: "Missing email or comment, the comment length exceeded" }, {status: 400});
-        }
-        const newFeedback = await prisma.feedback.create({ data: {
+        await prisma.feedback.create({ data: {
             email: email,
             comment: comment,  
         }});
-        return NextResponse.json({ message: "Row created successfully"}, {status: 201});
+        return NextResponse.json({ success: true}, {status: 201});
     } catch (error) {
+        if (error instanceof z.ZodError){
+            return NextResponse.json(
+                {error: 'Invalid or missing Email or comment', details: error.issues},
+                {status: 400}
+            )
+        }
         console.error("Error saving feedback:", error);
-        return NextResponse.json( {message: "Something went wrong" }, {status: 500});
+        return NextResponse.json( { error: "Something went wrong" }, {status: 500});
     }
 }
