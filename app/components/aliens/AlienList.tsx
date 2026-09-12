@@ -3,7 +3,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import { useAliens, Alien } from '@/lib/Store';
 import { useRouter } from 'next/navigation';
-import OmnitrixLoader from './OmnitrixLoader';
+import OmnitrixLoader from '../shared/OmnitrixLoader';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleDot } from '@fortawesome/free-solid-svg-icons/faCircleDot';
@@ -21,7 +21,7 @@ export default function AlienList() {
   const { data: session } = useSession(); // Get session data
   const [isFiltering, setIsFiltering] = useState(false);
   const [visibleAliens, setVisibleAliens] = useState<Alien[]>([]);
-  const [favorites, setFavorites] = useState<string[]>([]);
+  const [favorites, setFavorites] = useState<number[]>([]);
   const [isFavoritesLoading, setIsFavoritesLoading] = useState(false);
   const [isMoreLoading, setIsMoreLoading] = useState(false);
 
@@ -60,27 +60,27 @@ export default function AlienList() {
 
 
   // Toggle favorite
-  const toggleFavorite = async (alienName: string) => {
+  const toggleFavorite = async (sourceId: number) => {
     if (!isLoggedIn) {
       toast.error('Please log in to add favorites!');
       return;
     }
   
-    const isCurrentlyFavorite = favorites.includes(alienName);
+    const isCurrentlyFavorite = favorites.includes(sourceId);
 
     //instant UI feedback 
 
     setFavorites((prev) => 
       isCurrentlyFavorite
-        ? prev.filter((name) => name !== alienName)
-        : [...prev, alienName]
+        ? prev.filter((id) => id !== sourceId)
+        : [...prev, sourceId]
     );
 
     try {
       const response = await fetch('../api/favorites', {
         method: isCurrentlyFavorite ? 'DELETE' : 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ alienName }),
+        body: JSON.stringify({ sourceId }),
       });
 
       if (!response.ok) {
@@ -92,8 +92,8 @@ export default function AlienList() {
       //Revert optimistic update on error
       setFavorites((prev) => 
         isCurrentlyFavorite
-          ? [...prev, alienName]
-          : prev.filter((name) => name !== alienName)
+          ? [...prev, sourceId]
+          : prev.filter((id) => id !== sourceId)
       )
       toast.error('Failed to update favorites');
       console.error('Error toggling favorite', error);
@@ -109,19 +109,9 @@ export default function AlienList() {
 
   const filteredAliens = useMemo(() => {
     return aliens.filter((alien) => {
-      const q = search.toLowerCase().trim();
-      const searchMatch =
-        q === '' ||
-        alien.name.toLowerCase().includes(q) ||
-        alien.species.toLowerCase().includes(q);
-      const seriesMatch =
-        !series ||
-        String(alien.series).toLowerCase().includes(series.toLowerCase());
-      const favoriteMatch = !showFavorites || favorites.includes(alien.name);
-      
-      return searchMatch && seriesMatch && favoriteMatch;
+      return !showFavorites || favorites.includes(alien.id);
     });
-  }, [aliens, search, series, showFavorites, favorites]);
+  }, [aliens, showFavorites, favorites]);
 
   useEffect(() => {
     setVisibleAliens(filteredAliens.slice(0, 9));
@@ -206,11 +196,11 @@ export default function AlienList() {
                 <FontAwesomeIcon
                   icon={faHeart}
                   className={`ml-4 mt-4 transition-colors cursor-pointer ${
-                    favorites.includes(alien.name) ? 'text-red-500' : 'text-gray-700'
+                    favorites.includes(alien.id) ? 'text-red-500' : 'text-gray-700'
                   } ${isLoggedIn ? 'hover:text-red-300' : 'hover:text-gray-600'}`}
                   onClick={(e) => {
                     e.stopPropagation();
-                    toggleFavorite(alien.name);
+                    toggleFavorite(alien.id);
                   }}
                 />
               </div>

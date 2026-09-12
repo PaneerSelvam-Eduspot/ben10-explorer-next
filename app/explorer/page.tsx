@@ -1,9 +1,9 @@
 'use client';
-import Searchbox from '../components/Searchbox';
-import FilterAliens from '../components/FilterAliens';
-import AlienList from '../components/AlienList';
-import ExplorerBackground from '../components/ExplorerBackground';
-import OmnitrixBackground from '../components/OmnitrixBackground';
+import Searchbox from '../components/aliens/Searchbox';
+import FilterAliens from '../components/aliens/FilterAliens';
+import AlienList from '../components/aliens/AlienList';
+import ExplorerBackground from '../components/backgrounds/ExplorerBackground';
+import OmnitrixBackground from '../components/backgrounds/OmnitrixBackground';
 
 export default function ExplorerPage() {
   return (

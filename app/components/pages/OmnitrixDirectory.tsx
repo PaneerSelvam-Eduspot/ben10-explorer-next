@@ -3,10 +3,8 @@
 import { motion } from 'framer-motion';
 import { useState } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
+import OmnitrixBackground from '../backgrounds/OmnitrixBackground';
 import { useRouter } from 'next/navigation';
-import ExplorerBackground from './ExplorerBackground';
-import OmnitrixBackground from './OmnitrixBackground';
-import { Footer } from 'react-day-picker';
 
 interface Alien {
   id: number;

@@ -1,7 +1,7 @@
 'use client';
 
 import React, { createContext, useContext, useState, useCallback } from 'react';
-import OmnitrixLoader from './OmnitrixLoader';
+import OmnitrixLoader from '../shared/OmnitrixLoader';
 
 interface LoadingContextType {
   isLoading: boolean;

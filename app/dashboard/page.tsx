@@ -4,7 +4,7 @@ import { useRouter } from "next/navigation";
 import { useSession, signOut } from "@/lib/auth-client";
 import { useEffect } from "react";
 import { Button } from "@/components/ui/button";
-import ExplorerBackground from "../components/ExplorerBackground";
+import ExplorerBackground from "../components/backgrounds/ExplorerBackground";
 import { motion, type Variants } from 'framer-motion';
 
 export default function DashboardPage() {

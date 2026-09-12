@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { POST } from '../api/chat/route';
+import { POST } from '../../api/chat/route';
 import { NextResponse } from 'next/server';
 
 export default function Footer() {

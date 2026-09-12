@@ -2,17 +2,20 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { useAliens } from '@/lib/Store';
 import { useRouter} from 'next/navigation';
-import OmnitrixLoader from './OmnitrixLoader';
+import OmnitrixLoader from '../shared/OmnitrixLoader';
 import { AnimatePresence, motion, useScroll, useSpring, useTransform } from 'framer-motion';
-import AlienBackground from './Alienbackground';
+import AlienBackground from '../backgrounds/Alienbackground';
 import {CardDescription } from '@/components/ui/card';
-import ExplorerBackground from './ExplorerBackground';
+import ExplorerBackground from '../backgrounds/ExplorerBackground';
 import Image from 'next/image';
 import dynamic from 'next/dynamic';
 
+
+
+
 const PLACEHOLDER_URL_LARGE = 'https://placehold.co/320x320/059669/FFFFFF?text=OMNITRIX';
 
-const AlienCarousel = dynamic(() => import('./AlienCarousel'), {
+const AlienCarousel = dynamic(() => import('../aliens/AlienCarousel'), {
   loading: () => <div className='h-40'/>
 })
 

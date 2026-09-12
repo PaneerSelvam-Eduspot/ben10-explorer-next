@@ -1,11 +1,10 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
-import { useLoading } from './LoadingProvider';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
-import ExplorerBackground from './ExplorerBackground';
-import SeriesStack from './SeriesStack';
+import { useLoading } from '../layout/LoadingProvider';
+import ExplorerBackground from '../backgrounds/ExplorerBackground';
 
 const series = [
   {

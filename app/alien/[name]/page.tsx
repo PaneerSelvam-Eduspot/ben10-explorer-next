@@ -1,6 +1,6 @@
 'use client';
+import AlienDetail from '@/app/components/aliens/AlienDetail';
 import { useParams } from 'next/navigation';
-import AlienDetail from '../../components/AlienDetail';
 
 export default function AlienPage() {
   const params = useParams();

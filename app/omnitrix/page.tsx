@@ -1,10 +1,10 @@
 'use client';
 import { useAliens } from '@/lib/Store';
-import OmnitrixDirectory from '@/app/components/OmnitrixDirectory';
-import OmnitrixLoader from '@/app/components/OmnitrixLoader';
+import OmnitrixDirectory from '@/app/components/pages/OmnitrixDirectory';
+import OmnitrixLoader from '@/app/components/shared/OmnitrixLoader';
 import { motion } from 'framer-motion';
-import OmnitrixBackground from '../components/OmnitrixBackground';
-import ExplorerBackground from '../components/ExplorerBackground';
+import OmnitrixBackground from '../components/backgrounds/OmnitrixBackground';
+import ExplorerBackground from '../components/backgrounds/ExplorerBackground';
 
 export default function OmnitrixPage() {
   const { allAliens, isLoading, error } = useAliens();
