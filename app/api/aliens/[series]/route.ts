@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import prisma from '@/lib/prisma';
+import { error } from 'console';
 
 // Same slug -> series-name mapping the old ben10-api used, kept identical
 // so the frontend's SERIES_SLUGS in lib/Store.tsx doesn't need to change.
@@ -23,7 +24,7 @@ export async function GET(
     const seriesName = seriesMap[seriesParam];
 
     if (!seriesName) {
-      return NextResponse.json({ message: 'Series not found' }, { status: 404 });
+      return NextResponse.json({ error: 'Series not found' }, { status: 404 });
     }
 
     const { searchParams } = new URL(req.url);
@@ -60,6 +61,6 @@ export async function GET(
     return NextResponse.json(shaped);
   } catch (error: unknown) {
     console.error('Error fetching aliens:', error);
-    return NextResponse.json({ message: getErrorMessage(error) }, { status: 500 });
+    return NextResponse.json({ error: getErrorMessage(error) }, { status: 500 });
   }
 }
