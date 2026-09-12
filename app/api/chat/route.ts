@@ -27,7 +27,6 @@ const astraClient = new DataAPIClient(ASTRA_DB_APPLICATION_TOKEN!);
 const db = astraClient.db(ASTRA_DB_API_ENDPOINT!, {
   keyspace: ASTRA_DB_NAMESPACE!,
 });
-
 // ── Singleton Gemini clients ──────────────────────────────────────────────────
 // @google/generative-ai — embeddings only (no AI SDK equivalent yet)
 // @ai-sdk/google        — generation via streamText
@@ -44,6 +43,9 @@ const google = createGoogleGenerativeAI({
 const rateLimitMap = new Map<string, { count: number; resetAt: number }>();
 const RATE_LIMIT = 20;
 const WINDOW_MS = 60_000;
+
+let modelCache: ModelCache | null = null;
+const MODEL_CACHE_TTL_MS = 60_000;
 
 function isRateLimited(userId: string): boolean {
   const now = Date.now();
@@ -84,6 +86,7 @@ type ChatMessage = {
   content: string;
   timestamp?: string;
 };
+
 
 // ── History helper ────────────────────────────────────────────────────────────
 // Called inside onFinish — after full stream is delivered to client.
@@ -182,18 +185,8 @@ export async function POST(req: Request) {
     // Capture userId for use inside onFinish closure
     const userId = session.user.id;
 
-  async function resolveModel(): Promise<string>{
-   try{
-     await generateText({
-      model: google("gemini-3.5-flash"),
-      prompt: "Hello"
-    })
-    return "gemini-3.5-flash";
-   } catch(err){
-    console.error("[chat/route] primary model failed", err);
-    return "gemini-3.1-flash-lite";
-   }
-  }
+ 
+
 
 
     // 8️⃣ Stream response
@@ -270,10 +263,7 @@ export async function POST(req: Request) {
       { status: 429 }
     );
   }
-  // 👇 Add this temporarily to see the EXACT error
-  console.error("[chat/route] FULL ERROR:", JSON.stringify(err, null, 2));
-  console.error("[chat/route] MESSAGE:", err?.message);
-  console.error("[chat/route] STACK:", err?.stack);
+  console.error("[chat/route] POST failed:", err);
   return Response.json({ error: "Internal server error" }, { status: 500 });
 }
 }
