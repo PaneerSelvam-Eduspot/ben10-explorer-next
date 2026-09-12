@@ -14,6 +14,11 @@ const {
   GEMINI_API_KEY,
 } = process.env;
 
+type ModelCache = {
+  modelId: string,
+  expiresAt: number
+}
+
 
 // ── Singleton AstraDB client ──────────────────────────────────────────────────
 // Initialized once on cold start — reused across all requests.
@@ -51,6 +56,27 @@ function isRateLimited(userId: string): boolean {
   entry.count++;
   return false;
 }
+
+  async function resolveModel(): Promise<string>{
+    const now = Date.now();
+
+    if (modelCache && now < modelCache.expiresAt) {
+      return modelCache.modelId;
+    }
+  
+   try{
+     await generateText({
+      model: google("gemini-3.5-flash"),
+      prompt: "Hello"
+    })
+    modelCache = { modelId: "gemini-3.5-flashh" , expiresAt: now + MODEL_CACHE_TTL_MS }
+    return modelCache.modelId
+   } catch(err){
+    console.error("[chat/route] primary model failed", err);
+    modelCache = { modelId: "gemini-3.1-flash-lite", expiresAt: now + MODEL_CACHE_TTL_MS };
+    return modelCache.modelId;
+   }
+  }
 
 // ── Types ─────────────────────────────────────────────────────────────────────
 type ChatMessage = {
