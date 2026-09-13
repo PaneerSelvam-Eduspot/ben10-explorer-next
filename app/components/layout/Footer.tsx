@@ -99,7 +99,7 @@ export default function Footer() {
               <span className="text-white font-medium">Man of Action Studios</span>.
             </p>
 
-            <p className="text-gray-500 text-xs">
+            <p className="text-gray-400 text-xs">
               Not affiliated with or endorsed by Cartoon Network. This project demonstrates 
               frontend development and UI design skills.
             </p>
@@ -109,7 +109,7 @@ export default function Footer() {
 
         {/* Bottom Bar */}
         <div className="pt-8 border-t border-[#00FF00]/10 text-center">
-          <p className="text-gray-500 text-xs">
+          <p className="text-gray-400 text-xs">
             © {new Date().getFullYear()} Ben 10 Alien Explorer — Fan Project
           </p>
         </div>
