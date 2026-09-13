@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { useLoading } from '../layout/LoadingProvider';
 import ExplorerBackground from '../backgrounds/ExplorerBackground';
+import Image from 'next/image';
 
 const series = [
   {
@@ -26,6 +27,8 @@ const series = [
     description: "Ben's identity is revealed to the world, forcing him to navigate global celebrity while dealing with the replacement Ultimatrix. This device introduces the 'Ultimate' feature, creating monstrous, battle-evolved versions of his aliens to handle cosmic-level threats. The narrative focuses on the weight of extreme power and public perception. Ben must manage villains like Aggregor and the god-like Diagon, pushing him to the absolute limits of his abilities and responsibility."
   },
 ];
+
+const MotionImage = motion(Image);
 
 export default function Home() {
   const { showLoader, hideLoader } = useLoading();
@@ -130,11 +133,13 @@ export default function Home() {
               <div className="relative w-80 h-80 md:w-[26rem] md:h-[26rem] flex-shrink-0">
                 <AnimatePresence mode="sync">
                   {/* PREVIOUS IMAGE (Left) */}
-                  <motion.img
+                  <MotionImage
                     key={`prev-${currentIndex}`}
                     src={prevSeries.image}
                     alt="Previous series"
                     loading='eager'
+                    width={416}
+                    height={416}
                     className="absolute w-full h-full object-contain pointer-events-none"
                     initial={{ x: -130, scale: 0.6, opacity: 0, filter: 'blur(5px)' }}
                     animate={{ 
@@ -156,11 +161,13 @@ export default function Home() {
                   />
 
                   {/* CURRENT IMAGE (Center - Main Focus) */}
-                  <motion.img
+                  <MotionImage
                     key={`current-${currentIndex}`}
                     src={currentSeries.image}
                     alt={currentSeries.name}
                     loading='eager'
+                    width={416}
+                    height={416}
                     className="absolute w-full h-full object-contain z-10"
                     initial={{
                       x: direction === 'next' ? 95 : -95,
@@ -188,11 +195,13 @@ export default function Home() {
                   />
 
                   {/* NEXT IMAGE (Right) */}
-                  <motion.img
+                  <MotionImage
                     key={`next-${currentIndex}`}
                     src={nextSeries.image}
                     alt="Next series"
                     loading='eager'
+                    width={416}
+                    height={416}
                     className="absolute w-full h-full object-contain pointer-events-none"
                     initial={{ x: 130, scale: 0.6, opacity: 0, filter: 'blur(5px)' }}
                     animate={{ 
@@ -236,10 +245,12 @@ export default function Home() {
                     {/* Spinning Omnitrix — visible only while morphing */}
                     <AnimatePresence>
                      {isMorphing && (
-                        <motion.img 
+                        <MotionImage
                           key="omnitrix"
                           src="/ben10-omnitrix.png"
                           alt="Omnitrix"
+                          width={96}
+                          height={96}
                           className='w-20 h-20 md:w-24 md:h-24 absolute'
                           style={{ filter: 'drop-shadow(0 0 20px rgba(0, 255, 0, 0.6))'}}
                           initial={{ opacity: 0, scale: 0.4, rotate: 0 }}
