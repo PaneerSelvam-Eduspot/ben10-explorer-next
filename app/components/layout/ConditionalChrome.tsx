@@ -4,7 +4,9 @@ import dynamic from 'next/dynamic';
 import { usePathname } from 'next/navigation';
 import { ReactNode } from 'react';
 
-const Header = dynamic(() => import('./Header'));
+const Header = dynamic(() => import('./Header'), {
+  loading: () => <div className='h-16 md:h-24'/>
+});
 const Footer = dynamic(() => import('./Footer'));
 const LoginNavbar = dynamic(() => import('./LoginNavbar'));
 const RagIcon = dynamic(() => import('../chat/RagIcon'));
