@@ -71,7 +71,7 @@ function isRateLimited(userId: string): boolean {
       model: google("gemini-3.5-flash"),
       prompt: "Hello"
     })
-    modelCache = { modelId: "gemini-3.5-flashh" , expiresAt: now + MODEL_CACHE_TTL_MS }
+    modelCache = { modelId: "gemini-3.5-flash" , expiresAt: now + MODEL_CACHE_TTL_MS }
     return modelCache.modelId
    } catch(err){
     console.error("[chat/route] primary model failed", err);
