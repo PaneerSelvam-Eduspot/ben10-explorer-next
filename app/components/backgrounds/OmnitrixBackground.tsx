@@ -3,7 +3,7 @@
 import { motion } from 'framer-motion';
 import { useEffect, useState } from 'react';
 
-const NUM_DOTS = 15;
+const NUM_DOTS = 10;
 export default function OmnitrixBackground() {
 
     const [dotProps, setDotProps] = useState<
@@ -38,45 +38,6 @@ return (
             </feMerge>
           </filter>
         </defs>
-
-        {/* Central Omnitrix symbol 
-        <g transform="translate(50, 50)">
-          <motion.circle
-            cx="0"
-            cy="0"
-            r="5"
-            fill="none"
-            stroke="#00ff00"
-            strokeWidth="0.8"
-            filter="url(#glow)"
-            initial={{ scale: 0.8, opacity: 0 }}
-            animate={{ 
-              scale: [0.8, 1, 0.8],
-              opacity: [0.6, 1, 0.6]
-            }}
-            transition={{
-              duration: 2,
-              repeat: Infinity,
-              ease: "easeInOut"
-            }}
-          />
-          <motion.circle
-            cx="0"
-            cy="0"
-            r="3"
-            fill="none"
-            stroke="#00ff00"
-            strokeWidth="0.5"
-            filter="url(#glow)"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: [0.4, 0.8, 0.4] }}
-            transition={{
-              duration: 1.5,
-              repeat: Infinity,
-              ease: "easeInOut"
-            }}
-          />
-        </g> */}
 
         {/* Top left circuit pattern */}
         <g>

@@ -1,7 +1,7 @@
 'use client';
 
 import { motion } from "framer-motion";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 
 
 export default function ExplorerBackground() {
@@ -18,7 +18,7 @@ export default function ExplorerBackground() {
 
   useEffect(() => {
     setBlobs(
-      Array.from({ length: 45 }).map(() => ({
+      Array.from({ length: 20 }).map(() => ({
         size: Math.random() * 120 + 40,
         x: Math.random() * 100,
         y: Math.random() * 100,

@@ -7,7 +7,7 @@ import { useEffect, useState } from "react";
 export default function AlienBackground({ transformImg }: { transformImg: string }) {
   const [ready, setReady] = useState(false);
   const [darkSpots] = useState(() =>
-    Array.from({ length: 200 }, () => ({
+    Array.from({ length: 100 }, () => ({
       size: Math.random() * 100 + 40,
       x: Math.random() * 100,
       y: Math.random() * 100,
@@ -19,7 +19,6 @@ export default function AlienBackground({ transformImg }: { transformImg: string
   useEffect(() => {
     setReady(true);
   }, []);
-
 
 
   if (!ready) return null;
@@ -78,7 +77,7 @@ export default function AlienBackground({ transformImg }: { transformImg: string
 
       {/* ENERGY RAYS FROM CENTER */}
       <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-        {Array.from({ length: 16 }).map((_, i) => (
+        {Array.from({ length: 11 }).map((_, i) => (
           <motion.div
             key={`beam-${i}`}
             className="absolute"
