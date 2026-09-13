@@ -16,6 +16,7 @@ import {
 import { motion } from "framer-motion";
 import { useSession } from "@/lib/auth-client";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
 
 // ── Types ─────────────────────────────────────────────────────────────────────
 type Message = {
@@ -51,7 +52,7 @@ const dotVariants = {
 const LoadingBubble = () => (
   <div className="flex gap-3 items-start">
     <div className="h-7 w-7 bg-[#006A4E] shrink-0 rounded-full overflow-hidden">
-      <img src="/ben10.png" alt="assist10" className="w-full h-full object-cover" />
+      <Image src="/ben10.png" alt="assist10" width={7} height={7} className="w-full h-full object-cover" />
     </div>
     <div className="bg-gray-800/50 border border-gray-700/50 rounded-lg p-3 flex items-center gap-2">
       <div className="flex gap-1"> 
@@ -78,9 +79,10 @@ function TypewriterText({ text }: { text: string }) {
   const textRef = useRef(text);
   const indexRef = useRef(0);
 
-  // Keep textRef pointing at the LATEST text every render,
-  // without restarting the interval below.
-  textRef.current = text; // what should this always equal?
+  // Keep textRef pointing at the latest text without mutating it during render.
+  useEffect(() => {
+    textRef.current = text;
+  }, [text]);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -119,7 +121,7 @@ const Bubble = ({
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.2 }}
         >
-          <img src="/ben10.png" alt="assist10" className="w-full h-full object-cover" />
+          <Image src="/ben10.png" alt="assist10" height={28} width={28} className="w-full h-full object-cover" />
         </motion.div>
       )}
 
