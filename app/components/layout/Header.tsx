@@ -8,6 +8,7 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
@@ -17,6 +18,7 @@ const navItems = [
   { name: "Explorer", icon: faCompass, href: "/explorer" },
   { name: "Omnitrix Directory", icon: faAtom, href: "/omnitrix" },
 ];
+const MotionImage = motion(Image);
 
 export default function Header() {
   const pathname = usePathname();
@@ -37,9 +39,11 @@ export default function Header() {
         {/* Logo */}
         <div className="w-16 h-16 md:w-24 md:h-24 z-20">
         <Link href="/">
-          <motion.img
+          <MotionImage
             src="/ben10-logo.png"
             alt="Ben 10 Logo"
+            width={96}
+            height={96}
             className="w-full h-full object-contain"
             whileHover={{ scale: 1.05 }}
             transition={{ duration: 0.3 }}
