@@ -215,7 +215,7 @@ export default function Home() {
                 </AnimatePresence>
               </div>
 
-              <div className='flex-1 relative rounded-2xl flex justify-center'>
+              <div className='flex-1 relative rounded-2xl flex justify-center min-h-[280px] md:min-h-80'>
                 <motion.div
                 layout
                 transition={{ duration: SHRINK_MS / 1000, ease: [0.65, 0, 0.35, 1] }}
@@ -307,7 +307,6 @@ export default function Home() {
           </div>
         </div>
       )}
-      {/*<SeriesStack />*/}
     </div>
   );
 }
