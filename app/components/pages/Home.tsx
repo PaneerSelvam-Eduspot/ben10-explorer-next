@@ -300,6 +300,7 @@ export default function Home() {
           <div className="mt-1 md:mt-12 mb-4 flex gap-5 justify-center">
             <motion.button
               onClick={handlePrev}
+              aria-label='Previous series'
               className="w-12 h-12 md:w-16 md:h-16 rounded-full bg-gradient-to-br from-gray-800 to-gray-900 border-2 border-green-500/50 flex items-center justify-center text-green-400 shadow-lg z-10 group"
               whileHover={{ scale: 1.1, borderColor: 'rgba(0, 255, 0, 0.8)' }}
               whileTap={{ scale: 0.95 }}
@@ -309,6 +310,7 @@ export default function Home() {
 
             <motion.button
               onClick={handleNext}
+              aria-label='Next series'
               className="w-12 h-12 md:w-16 md:h-16 rounded-full bg-gradient-to-br from-gray-800 to-gray-900 border-2 border-green-500/50 flex items-center justify-center text-green-400 shadow-lg z-10 group"
               whileHover={{ scale: 1.1, borderColor: 'rgba(0, 255, 0, 0.8)' }}
               whileTap={{ scale: 0.95 }}
