@@ -52,7 +52,7 @@ export default function Header() {
         </div>
 
         {/* Desktop Navigation */}
-        <div className="hidden md:flex w-full md:max-w-2xl lg:max-w-4xl mx-auto mt-[-37] bg-black/70 relative z-10 border-b-3 border-[#00FF00]/70 shadow-[0_4px_30px_rgba(0,255,0,0.3)] rounded-b-md">
+        <div className="hidden md:flex w-full md:max-w-2xl lg:max-w-4xl mx-auto mt-[-37px] bg-black/70 relative z-10 border-b-3 border-[#00FF00]/70 shadow-[0_4px_30px_rgba(0,255,0,0.3)] rounded-b-md">
           <nav className="flex items-stretch w-full">
             {navItems.map((item, index) => {
               const isActive = pathname === item.href;
