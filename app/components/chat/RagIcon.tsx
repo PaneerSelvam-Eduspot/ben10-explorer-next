@@ -2,6 +2,9 @@
 import { useState } from "react";
 import { motion, } from "framer-motion";
 import RagPage from "./RagPage";
+import Image from "next/image";
+
+const MotionImage = motion(Image);
 
 export default function RagIcon() {
     const [open, setOpen] = useState(false);
@@ -43,9 +46,12 @@ export default function RagIcon() {
                 /> */}
               <button className="w-15 h-15 " 
                 onClick={handleOnclick}>
-                  <motion.img 
+                  <MotionImage 
                     src="/omnitrix.png"
-                    alt="omnitrix" 
+                    alt="omnitrix"
+                    width={60}
+                    height={60}
+                    className="w-full h-full object-contain" 
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.3 }}

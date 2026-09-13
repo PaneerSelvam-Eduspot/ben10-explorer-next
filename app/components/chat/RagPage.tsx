@@ -26,7 +26,7 @@ type Message = {
   timestamp?: string;
   isError?: boolean;
 };
-
+const MotionImage = motion(Image);
 // ── Error classifier ──────────────────────────────────────────────────────────
 function getErrorMessage(status: number): string {
   switch (status) {
@@ -410,11 +410,12 @@ export default function RagPage({ onClose }: { onClose?: () => void }) {
               <div className="text-center space-y-3">
                 <div className="flex justify-center">
                   <div className="bg-green-600/10 rounded-full border border-green-500 overflow-hidden">
-                    <motion.img
+                    <MotionImage
                       src="/ben10.png"
                       width={64}
                       height={64}
                       alt="Ben10"
+                      className="object-cover"
                       initial={{ opacity: 0, scale: 0.8 }}
                       animate={{ opacity: 1, scale: 1 }}
                       transition={{ duration: 0.4 }}
