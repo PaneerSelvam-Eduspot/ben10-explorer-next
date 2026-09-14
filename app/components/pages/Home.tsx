@@ -48,7 +48,9 @@ export default function Home() {
       return;
     }
 
-    setIsMorphing(true);
+    const morphTimer = setTimeout(() => {
+      setIsMorphing(true);
+    }, 0);
 
     const swapTimer = setTimeout(() => {
       setDescIndex(currentIndex);
@@ -59,28 +61,7 @@ export default function Home() {
     }, SHRINK_MS + HOLD_MS);
 
     return () => {
-      clearTimeout(swapTimer);
-      clearTimeout(growTimer);
-    };
-  }, [currentIndex]);
-  
-  useEffect(() => {
-    if (isFirstRender.current) {
-      isFirstRender.current = false;
-      return;
-    }
-
-    setIsMorphing(true);
-
-    const swapTimer = setTimeout(() => {
-      setDescIndex(currentIndex);
-    }, SHRINK_MS + HOLD_MS);
-
-    const growTimer = setTimeout(() => {
-      setIsMorphing(false);
-    }, SHRINK_MS + HOLD_MS);
-
-    return () => {
+      clearTimeout(morphTimer);
       clearTimeout(swapTimer);
       clearTimeout(growTimer);
     };
