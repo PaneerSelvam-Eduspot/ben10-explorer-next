@@ -14,7 +14,9 @@ The project explores full-stack data flow: relational persistence for applicatio
 ┌────────────┬────────────┬────────────┐
 │   Home     │  Explorer  │  Assist10  │
 └────────────┴────────────┴────────────┘
-<img width="1535" height="768" alt="Screenshot 2026-09-16 151546" src="https://github.com/user-attachments/assets/3f0fb0b5-3723-4b7a-9734-ea55636a8ebb" /> <img width="1526" height="730" alt="Screenshot 2026-09-16 151612" src="https://github.com/user-attachments/assets/2003a42d-d354-4cd9-9db4-83a0eaa9d527" /> <img width="1520" height="726" alt="Screenshot 2026-09-16 151704" src="https://github.com/user-attachments/assets/3cc61fc3-ebd4-490b-aef0-f51f6e16a290" />
+<img width="1535" height="768" alt="Screenshot 2026-09-16 151546" src="https://github.com/user-attachments/assets/3f0fb0b5-3723-4b7a-9734-ea55636a8ebb" />
+<img width="1526" height="730" alt="Screenshot 2026-09-16 151612" src="https://github.com/user-attachments/assets/2003a42d-d354-4cd9-9db4-83a0eaa9d527" /> 
+<img width="1520" height="726" alt="Screenshot 2026-09-16 151704" src="https://github.com/user-attachments/assets/3cc61fc3-ebd4-490b-aef0-f51f6e16a290" />
 
 ## Features
 
