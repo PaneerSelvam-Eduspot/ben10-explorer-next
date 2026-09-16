@@ -17,6 +17,8 @@ Explorer
 Assist10
 <img width="1520" height="726" alt="Screenshot 2026-09-16 151704" src="https://github.com/user-attachments/assets/3cc61fc3-ebd4-490b-aef0-f51f6e16a290" />
 
+[LIVE DEMO](https://ben10alienexplorer.vercel.app/)
+
 ## Features
 
 - **Alien Explorer** — Browse aliens from Ben 10 Classic, Alien Force, and Ultimate Alien with search and series filtering.
